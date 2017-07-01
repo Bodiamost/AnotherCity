@@ -8,3 +8,13 @@ c:\users\bodia\documents\visual studio 2017\Projects\AnotherCity\AnotherCity\obj
 c:\users\bodia\documents\visual studio 2017\Projects\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.pdb
 C:\Users\bodia\documents\visual studio 2017\Projects\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 C:\Users\bodia\documents\visual studio 2017\Projects\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.csprojResolveAssemblyReference.cache
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\bin\Debug\netcoreapp1.1\AnotherCity.deps.json
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\bin\Debug\netcoreapp1.1\AnotherCity.runtimeconfig.json
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\bin\Debug\netcoreapp1.1\AnotherCity.runtimeconfig.dev.json
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\bin\Debug\netcoreapp1.1\AnotherCity.dll
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\bin\Debug\netcoreapp1.1\AnotherCity.pdb
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.csprojResolveAssemblyReference.cache
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.AssemblyInfo.cs
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.dll
+C:\Users\bodia\Desktop\AnotherCity\AnotherCity\obj\Debug\netcoreapp1.1\AnotherCity.pdb
