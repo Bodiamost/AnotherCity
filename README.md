@@ -1,1 +1,2 @@
-"# web-project-Bodiamost" 
+Youth organization website 
+by Bohdan Mostytskyy
