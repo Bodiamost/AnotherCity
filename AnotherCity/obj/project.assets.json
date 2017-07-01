@@ -11000,10 +11000,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bodia\\documents\\visual studio 2017\\Projects\\AnotherCity\\AnotherCity\\AnotherCity.csproj",
+      "projectUniqueName": "C:\\Users\\bodia\\Desktop\\AnotherCity\\AnotherCity\\AnotherCity.csproj",
       "projectName": "AnotherCity",
-      "projectPath": "C:\\Users\\bodia\\documents\\visual studio 2017\\Projects\\AnotherCity\\AnotherCity\\AnotherCity.csproj",
-      "outputPath": "C:\\Users\\bodia\\documents\\visual studio 2017\\Projects\\AnotherCity\\AnotherCity\\obj\\",
+      "projectPath": "C:\\Users\\bodia\\Desktop\\AnotherCity\\AnotherCity\\AnotherCity.csproj",
+      "outputPath": "C:\\Users\\bodia\\Desktop\\AnotherCity\\AnotherCity\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
