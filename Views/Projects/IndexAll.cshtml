@@ -1,0 +1,22 @@
+@model IEnumerable<AnotherCity.Models.Project>
+
+@{
+    ViewData["Title"] = "All projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="bg-gray no-padding below-header">
+    <div class="container">
+        <div class="row">
+            @await Html.PartialAsync("_SliderItems",Model.Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <= 1))
+            @await Html.PartialAsync("_RightItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > 0))
+        </div>
+    </div>
+</section>
+
+<section id="blog" class="bg-gray no-padding-top">
+    <div class="container">
+        @await Html.PartialAsync("_BottomItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0))
+    </div>
+</section>
+

@@ -1,0 +1,204 @@
+@model AnotherCity.Models.Project
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BackendLayout.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>Project</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="MemberId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="VolunteerOpp" />
+                    <label asp-for="VolunteerOpp"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="InvestOpp" />
+                    <label asp-for="InvestOpp"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <div class="input-group date" style="max-width: 280px;" id='datetimepicker1'>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FinishDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <div class="input-group date" style="max-width: 280px;" id='datetimepicker2'>
+                    <input asp-for="FinishDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="FinishDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShortDesc" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="ShortDesc" class="form-control"></textarea>
+                <span asp-validation-for="ShortDesc" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MainImg" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input type="file" asp-for="MainImg" class="form-control" />
+                <span asp-validation-for="MainImg" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Images</label>
+            <div class="col-md-10">
+                <input type="file" name="images" class="form-control" multiple />
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SocialLinks" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SocialLinks" class="form-control" />
+                <span asp-validation-for="SocialLinks" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Status" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Location" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LatLng" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input type="hidden" asp-for="LatLng" class="form-control" />
+                <span asp-validation-for="LatLng" class="text-danger"></span>
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+            $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').data("DateTimePicker").date());
+
+
+            $("#datetimepicker1").on("dp.change", function (e) {
+                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker2").on("dp.change", function (e) {
+                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+</script>
+    <script>
+        var geocoder;
+        var map;
+        var marker
+        function initMap() {
+            var uluru = { lat: 49.363, lng: 23.044 };
+
+            geocoder = new google.maps.Geocoder();
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: uluru
+            });
+            marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                draggable: true,
+                title: "Change location!"
+            });
+            google.maps.event.addListener(marker, 'dragend', function (evt) {
+                document.getElementById("LatLng").value = evt.latLng.lat().toFixed(9) + "," + evt.latLng.lng().toFixed(9);
+                });
+        }
+        function codeAddress() {
+            var address = document.getElementById('Location').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    marker.setPosition(results[0].geometry.location);
+                    document.getElementById("LatLng").value = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        window.onload = function () {
+            $('#Location').blur(function () {
+                codeAddress();
+            });
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
+    </script>
+
+}

@@ -1,0 +1,19 @@
+@model IEnumerable<AnotherCity.Models.Project>
+@inject AnotherCity.Services.FormattingService Format
+
+<div class="row blog-grid-listing">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="300ms">
+            <div class="blog-image"><a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id"><img src="~/uploads/@item.MainImg" alt="" /></a></div>
+            <div class="blog-details">
+                <div class="blog-date">Hosted by <a asp-controller="Members" asp-action="IndexAll">@item.Member.FirstName @item.Member.LastName</a> | @Format.AsReadableDate(item.StartDate)</div>
+                <div class="blog-title"><a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id">@item.Title</a></div>
+                <div class="blog-short-description">@item.ShortDesc</div>
+                <div class="separator-line bg-black no-margin-lr"></div>
+                <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
+            </div>
+        </div>
+    }
+</div>
+
