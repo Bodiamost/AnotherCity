@@ -6,7 +6,7 @@ namespace AnotherCity.Models
 {
     public partial class Volunteer : User
     {
-        public int? OpportunityId { get; set; }
+        public int? VolunteerOpportunityId { get; set; }
 
         [Required]
         [MinLength(30)]
@@ -18,6 +18,6 @@ namespace AnotherCity.Models
         [Display(Name = "Any social link")]
         public string SocialLink { get; set; }
         
-        public virtual VolunteerOpportunity Opportunity { get; set; }
+        public virtual VolunteerOpportunity VolunteerOpportunity { get; set; }
     }
 }

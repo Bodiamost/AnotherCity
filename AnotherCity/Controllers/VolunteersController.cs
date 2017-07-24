@@ -25,7 +25,7 @@ namespace AnotherCity.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.Opportunity);
+            var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity);
             return View(await anotherCityDbContext.ToListAsync());
         }
 
@@ -41,7 +41,7 @@ namespace AnotherCity.Controllers
 
             var volunteer = await _context.Volunteers
                 .Include(v => v.Account)
-                .Include(v => v.Opportunity)
+                .Include(v => v.VolunteerOpportunity)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (volunteer == null)
             {
@@ -64,7 +64,7 @@ namespace AnotherCity.Controllers
 
             var volunteer = await _context.Volunteers
                 .Include(v => v.Account)
-                .Include(v => v.Opportunity)
+                .Include(v => v.VolunteerOpportunity)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (volunteer == null)
             {
@@ -112,7 +112,7 @@ namespace AnotherCity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Home");
             }
-            ViewData["OpportunityId"] = new SelectList(_context.VolunteerOpportunities, "Id", "Title",volunteer.OpportunityId);
+            ViewData["OpportunityId"] = new SelectList(_context.VolunteerOpportunities, "Id", "Title",volunteer.VolunteerOpportunityId);
             return View(volunteer);
         }
     }

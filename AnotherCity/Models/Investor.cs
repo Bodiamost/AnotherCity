@@ -5,8 +5,8 @@ namespace AnotherCity.Models
 {
     public partial class Investor : User
     {
-        public int? OpportunityId { get; set; }
+        public int? InvestOpportunityId { get; set; }
 
-        public virtual InvestOpportunity Opportunity { get; set; }
+        public virtual InvestOpportunity InvestOpportunity { get; set; }
     }
 }

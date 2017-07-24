@@ -8,9 +8,10 @@ using AnotherCity.Data;
 namespace AnotherCity.Migrations
 {
     [DbContext(typeof(AnotherCityDbContext))]
-    partial class AnotherCityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170724025155_some-migration")]
+    partial class somemigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -394,9 +395,9 @@ namespace AnotherCity.Migrations
                 {
                     b.HasBaseType("AnotherCity.Models.User");
 
-                    b.Property<int?>("InvestOpportunityId");
+                    b.Property<int?>("OpportunityId");
 
-                    b.HasIndex("InvestOpportunityId");
+                    b.HasIndex("OpportunityId");
 
                     b.ToTable("Investor");
 
@@ -432,11 +433,11 @@ namespace AnotherCity.Migrations
                         .IsRequired()
                         .HasMaxLength(1024);
 
+                    b.Property<int?>("OpportunityId");
+
                     b.Property<string>("SocialLink");
 
-                    b.Property<int?>("VolunteerOpportunityId");
-
-                    b.HasIndex("VolunteerOpportunityId");
+                    b.HasIndex("OpportunityId");
 
                     b.ToTable("Volunteer");
 
@@ -547,9 +548,9 @@ namespace AnotherCity.Migrations
 
             modelBuilder.Entity("AnotherCity.Models.Investor", b =>
                 {
-                    b.HasOne("AnotherCity.Models.InvestOpportunity", "InvestOpportunity")
+                    b.HasOne("AnotherCity.Models.InvestOpportunity", "Opportunity")
                         .WithMany("Investors")
-                        .HasForeignKey("InvestOpportunityId");
+                        .HasForeignKey("OpportunityId");
                 });
 
             modelBuilder.Entity("AnotherCity.Models.Member", b =>
@@ -562,9 +563,9 @@ namespace AnotherCity.Migrations
 
             modelBuilder.Entity("AnotherCity.Models.Volunteer", b =>
                 {
-                    b.HasOne("AnotherCity.Models.VolunteerOpportunity", "VolunteerOpportunity")
+                    b.HasOne("AnotherCity.Models.VolunteerOpportunity", "Opportunity")
                         .WithMany("Volunteers")
-                        .HasForeignKey("VolunteerOpportunityId");
+                        .HasForeignKey("OpportunityId");
                 });
         }
     }
