@@ -92,8 +92,10 @@ namespace AnotherCity.Controllers
         }
 
         // GET: Volunteers/Create
-        public IActionResult Create()
+        public IActionResult Create(int id=0)
         {
+            ViewData["OpportunityId"] = new SelectList(_context.VolunteerOpportunities, "Id", "Title",id);
+
             return View();
         }
 
@@ -102,7 +104,7 @@ namespace AnotherCity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Bio,SocialLink,Id,FirstName,LastName,Email,Phone")] Volunteer volunteer)
+        public async Task<IActionResult> Create([Bind("Bio,SocialLink,Id,OpportunityId,FirstName,LastName,Email,Phone")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +112,7 @@ namespace AnotherCity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Home");
             }
+            ViewData["OpportunityId"] = new SelectList(_context.VolunteerOpportunities, "Id", "Title",volunteer.OpportunityId);
             return View(volunteer);
         }
     }

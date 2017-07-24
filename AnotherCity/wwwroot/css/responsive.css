@@ -1321,7 +1321,7 @@
 
     /*  key person   */
     #key-person .col-xs-4 { width: 100%; }
-    .key-person-details { bottom: 115px; }
+    .key-person-details { bottom: 15px; }
     .key-person:hover .key-person-details { bottom: 200px; }
     .key-person { max-height: 430px; max-width: 274px; margin: 0 auto; }
     .key-person .person-post { display: block; min-height: 0; }

@@ -25,13 +25,13 @@
                         
 
                     <!-- key person item -->
-                        <div class="col-md-4 col-xs-3 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
+                        <div class="col-md-4 col-sm-6 col-xs-12 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
                             <div class="key-person">
                                 <div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>
                                 <div class="key-person-details no-padding-bottom">
                                     <span class="person-name black-text">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span> <span class="person-post">@Html.DisplayFor(modelItem => item.Position.Title)</span>
                                     <div class="separator-line bg-yellow"></div>
-                                    <div class="person-social">
+                                    <div class="person-social hidden-xs">
                                         @foreach (var social in item.MemberSocials)
                                         {
                                             @if (social.SocialId == 1)

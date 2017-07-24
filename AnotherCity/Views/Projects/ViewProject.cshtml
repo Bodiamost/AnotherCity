@@ -30,6 +30,10 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 <h6 class="black-text no-margin-top no-letter-spacing"><strong>Location: </strong>@Model.Location </h6>
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
+                @if (Model.VolunteerOpp)
+                {
+                    <a asp-controller="Volunteers" asp-action="Create" asp-route-id="@Model.Id"><div class="btn btn-primary">Become a volunteer</div></a>
+                }
             </div>
 
             <div class="col-md-9">

@@ -12,7 +12,7 @@
         <h4>Project</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Id" />
         <div class="form-group">
             <label asp-for="MemberId" class="control-label col-md-2"></label>
             <div class="col-md-10">
@@ -245,7 +245,7 @@
             }
             google.maps.event.addListener(marker, 'dragend', function (evt) {
                 document.getElementById("LatLng").value = evt.latLng.lat().toFixed(9) + "," + evt.latLng.lng().toFixed(9);
-                });ql
+                });
         }
         function codeAddress() {
             var address = document.getElementById('Location').value;
