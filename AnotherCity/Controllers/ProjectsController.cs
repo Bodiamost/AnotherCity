@@ -194,14 +194,14 @@ namespace AnotherCity.Controllers
                     _context.Update(project);
                     await _context.SaveChangesAsync();
                     //hardcode need to be changed
+                    if (_context.VolunteerOpportunities.Any(opp => opp.ProjectId == project.Id))
+                    {
+                        VolunteerOpportunity oldTask = _context.VolunteerOpportunities.First(opp => opp.ProjectId == project.Id);
+                        _context.Remove(oldTask);
+                        await _context.SaveChangesAsync();
+                    }
                     if (project.VolunteerOpp)
                     {
-                        if(_context.VolunteerOpportunities.Any(opp=> opp.ProjectId==project.Id))
-                        {
-                            VolunteerOpportunity oldTask = _context.VolunteerOpportunities.First(opp => opp.ProjectId == project.Id);
-                            _context.Remove(oldTask);
-                            await _context.SaveChangesAsync();
-                        }
                         VolunteerOpportunity task = new VolunteerOpportunity();
                         task.JobType = "Help";
                         task.ProjectId = project.Id;
@@ -209,6 +209,7 @@ namespace AnotherCity.Controllers
                         _context.Add(task);
                         await _context.SaveChangesAsync();
                     }
+                    //hardcode end
                     if (images != null)
                     {
 
