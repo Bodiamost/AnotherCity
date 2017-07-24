@@ -104,7 +104,7 @@ namespace AnotherCity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Bio,SocialLink,Id,OpportunityId,FirstName,LastName,Email,Phone")] Volunteer volunteer)
+        public async Task<IActionResult> Create([Bind("Bio,SocialLink,VolunteerOpportunityId,FirstName,LastName,Email,Phone")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
