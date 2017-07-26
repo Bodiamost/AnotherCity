@@ -32,7 +32,8 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 @if (Model.VolunteerOpp)
                 {
-                    <a asp-controller="Volunteers" asp-action="Create" asp-route-id="@Model.Id"><div class="btn btn-black btn-medium">Become a volunteer</div></a>
+                    <div class="hidden-lg hidden-md"><a asp-controller="Volunteers" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-black btn-medium">Become a volunteer</a></div>
+                    <div id="become_a_volunteer" class="btn btn-black btn-medium hidden-sm hidden-xs">Become a volunteer</div>
                 }
             </div>
 
@@ -105,7 +106,83 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 </section>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
+    <script>
+        function objectifyForm(formArray) {//serialize data function
 
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+        $("#become_a_volunteer").on('click', function () { 
+            var url = "/api/Volunteers/GetVolunteerForm/" +@Model.Id;
+            $.confirm({
+                title: 'Become a volunteer!',
+                /*confirmButton: 'Apply!',
+                cancelButton: 'Later',
+                confirmButtonClass: 'btn-black',
+                cancelButtonClass: 'btn-black',*/
+                columnClass: 'col-md-6 col-md-offset-3',
+                content: 'url:' + url,
+                buttons: {
+                    formSubmit: {
+                        text: 'Apply!',
+                        btnClass: 'btn-black',
+                        action: function () {
+                            var self = this;
+                            if ($('#volunteer_form').valid()) {
+                                $.ajax({
+                                    'type': 'POST',
+                                    'url': "/api/Volunteers/PostVolunteerForm",
+                                    'timeout': 5000,
+                                    'contentType': 'application/json',
+                                    'data': JSON.stringify(objectifyForm($('#volunteer_form').serializeArray())),
+                                    'dataType': 'json'
+                                }).done(function (response) {
+                                    if (response != "OK") {
+                                        self.setContent(response);
+                                        $.alert({
+                                            title: 'Not valid information!',
+                                            content: 'The information you entered is not valid! Please provide an accurate data. ',
+                                        });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'Well done!',
+                                            content: 'You request is saved!',
+                                        });
+                                        self.close();
+                                    }
+                                }).fail(function () {
+                                    $.alert({
+                                        title: 'Oppps...Our fail!',
+                                        content: 'Something went wrong on our server or your internet connection.',
+                                    });
+                                });
+                            }
+                            return false;
+                        }
+                    },
+                    cancel:{
+                        text: 'Later',
+                        btnClass: 'btn-grey',
+                        action: function () {
+                            $.alert({
+                                title: ':(',
+                                content: 'Don`t miss a chance to work together!!',
+                            });
+                            return true;
+                        }
+                    },
+                },
+                /*confirm: function () {
+                   
+                }*/
+            });
+        });
+    </script>
     <script>
         var geocoder;
         var map;
@@ -140,5 +217,5 @@ Layout = "~/Views/Shared/_Layout.cshtml";
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
     </script>
-
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,0 +1,63 @@
+@model AnotherCity.Models.Volunteer
+
+<form id="volunteer_form" asp-controller="Volunteer" asp-action="PostVolunteerForm" data-ajax="true" data-ajax-method="POST">
+    <div class="form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <select style="visibility: hidden;" asp-for="VolunteerOpportunityId" asp-items="ViewBag.OpportunityId"></select>
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SocialLink" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <input asp-for="SocialLink" class="form-control" />
+                <span asp-validation-for="SocialLink" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Bio" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <textarea asp-for="Bio" class="form-control"></textarea>
+                @*<input asp-for="Bio" class="form-control" />*@
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-center">
+                <input type="submit" value="Apply" class="btn btn-black no-margin-bottom btn-medium" style="display:none" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($('#volunteer_form'));
+    });
+</script>
