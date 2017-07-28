@@ -27,7 +27,8 @@
                     <!-- key person item -->
                         <div class="col-md-4 col-sm-6 col-xs-12 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
                             <div class="key-person">
-                                <div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>
+                                @*<div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>*@
+                                <div class="key-person-img"><img src="http://via.placeholder.com/500x700" alt=""></div>
                                 <div class="key-person-details no-padding-bottom">
                                     <span class="person-name black-text">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span> <span class="person-post">@Html.DisplayFor(modelItem => item.Position.Title)</span>
                                     <div class="separator-line bg-yellow"></div>
@@ -82,7 +83,8 @@
                 {
                     <!-- team member -->
                     <div class="col-md-3 col-sm-4 text-center team-member position-relative wow fadeInUp" data-wow-duration="300ms">
-                        <img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt="" />
+                        @*<img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt="" />*@
+                        <img src="http://via.placeholder.com/500x700" alt="" />
                         <figure class="position-relative bg-white">
                             <span class="team-name text-uppercase black-text letter-spacing-2 display-block font-weight-600">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span>
                             <span class="team-post text-uppercase letter-spacing-2 display-block">@Html.DisplayFor(modelItem => item.Position.Title)</span>
