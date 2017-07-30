@@ -427,7 +427,7 @@ nav .container{ display: table-cell; vertical-align: middle; height: 80px; posit
 .shrink-nav .container { height: 60px; }
 .shrink-nav { background-color:#FFF; }
 .sticky-nav{ position: fixed; top: 0px; display: inline-table;}
-.logo { min-width: 109px; }
+.logo { max-width: 109px; }
 .logo-style-2 { max-width: 177px; }
 .logo-style-3 { max-width: 210px; }
 .sticky-nav .logo-light { height: 55px; vertical-align: middle; display: table-cell;}
