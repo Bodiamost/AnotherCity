@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnotherCity.Data;
 using AnotherCity.Models;
+using AnotherCity.Utilities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AnotherCity.Controllers
@@ -23,10 +24,55 @@ namespace AnotherCity.Controllers
         // GET: Volunteers
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity);
-            return View(await anotherCityDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["OppSortParm"] = sortOrder == "opp" ? "opp_desc" : "opp";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var volunteers = from s in _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity)
+                             select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                volunteers = volunteers.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name":
+                    volunteers = volunteers.OrderBy(s => s.LastName);
+                    break;
+                case "name_desc":
+                    volunteers = volunteers.OrderByDescending(s => s.LastName);
+                    break;
+                case "opp":
+                    volunteers = volunteers.OrderBy(s => s.VolunteerOpportunity.Title);
+                    break;
+                case "opp_desc":
+                    volunteers = volunteers.OrderByDescending(s => s.VolunteerOpportunity.Title);
+                    break;
+                case "date":
+                    volunteers = volunteers.OrderBy(s => s.ApplicationDate);
+                    break;
+                default:
+                    volunteers = volunteers.OrderByDescending(s => s.ApplicationDate);
+                    break;
+            }
+            // var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity);
+            int pageSize = 10;
+            return View(await PaginatedList<Volunteer>.CreateAsync(volunteers.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Volunteers/Details/5
@@ -108,6 +154,7 @@ namespace AnotherCity.Controllers
         {
             if (ModelState.IsValid)
             {
+                volunteer.ApplicationDate = DateTime.Now; 
                 _context.Add(volunteer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Home");

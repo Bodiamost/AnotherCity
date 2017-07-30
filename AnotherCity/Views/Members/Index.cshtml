@@ -1,4 +1,4 @@
-@model IEnumerable<AnotherCity.Models.Member>
+@model AnotherCity.Utilities.PaginatedList<AnotherCity.Models.Member>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,30 +10,41 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.FirstOrDefault().LastName)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Position)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PosSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.FirstOrDefault().Position)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TopMember)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().TopMember)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Phone)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Phone)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Account)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Account)
                 </th>
+
+
             <th></th>
         </tr>
     </thead>
@@ -70,3 +81,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

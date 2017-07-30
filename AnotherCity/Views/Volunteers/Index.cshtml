@@ -1,5 +1,4 @@
-@model IEnumerable<AnotherCity.Models.Volunteer>
-
+@model AnotherCity.Utilities.PaginatedList<AnotherCity.Models.Volunteer>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
@@ -10,26 +9,38 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bio)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SocialLink)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"  asp-route-currentFilter="@ViewData["CurrentFilter"]" >@Html.DisplayNameFor(model => model.FirstOrDefault().LastName)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["OppSortParm"]"  asp-route-currentFilter="@ViewData["CurrentFilter"]" >@Html.DisplayNameFor(model => model.FirstOrDefault().VolunteerOpportunity)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.FirstOrDefault().ApplicationDate)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().SocialLink)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Phone)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Phone)
                 </th>
             <th></th>
         </tr>
@@ -38,16 +49,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SocialLink)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VolunteerOpportunity.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialLink)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -63,3 +77,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

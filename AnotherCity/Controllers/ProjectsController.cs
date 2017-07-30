@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnotherCity.Data;
 using AnotherCity.Models;
+using AnotherCity.Utilities;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
@@ -25,10 +26,47 @@ namespace AnotherCity.Controllers
 
         // GET: Projects
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var anotherCityDbContext = _context.Projects.Include(p => p.Member);
-            return View(await anotherCityDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var projects = from s in _context.Projects.Include(p => p.Member)
+                             select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                projects = projects.Where(s => s.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "title":
+                    projects = projects.OrderBy(s => s.Title);
+                    break;
+                case "title_desc":
+                    projects = projects.OrderByDescending(s => s.Title);
+                    break;
+                case "date":
+                    projects = projects.OrderBy(s => s.StartDate);
+                    break;
+                default:
+                    projects = projects.OrderByDescending(s => s.StartDate);
+                    break;
+            }
+            // var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity);
+            int pageSize = 10;
+            return View(await PaginatedList<Project>.CreateAsync(projects.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Projects/Details/5

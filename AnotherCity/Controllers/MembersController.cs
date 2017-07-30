@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnotherCity.Data;
 using AnotherCity.Models;
+using AnotherCity.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
@@ -24,12 +25,48 @@ namespace AnotherCity.Controllers
 
         // GET: Members
         [Authorize(Roles = "SuperUser")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var anotherCityDbContext = _context.Members
-                .Include(m => m.Account)
-                .Include(m => m.Position);
-            return View(await anotherCityDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["PosSortParm"] = sortOrder == "pos" ? "pos_desc" : "pos";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var members = from s in _context.Members.Include(m => m.Account).Include(m => m.Position)
+            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                members = members.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    members = members.OrderByDescending(s => s.LastName);
+                    break;
+                case "pos":
+                    members = members.OrderBy(s => s.Position.Title);
+                    break;
+                case "pos_desc":
+                    members = members.OrderByDescending(s => s.Position.Title);
+                    break;
+                default:
+                    members = members.OrderBy(s => s.LastName);
+                    break;
+            }
+            // var anotherCityDbContext = _context.Volunteers.Include(v => v.Account).Include(v => v.VolunteerOpportunity);
+            int pageSize = 10;
+            return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Members/Details/5

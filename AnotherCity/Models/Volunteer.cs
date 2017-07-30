@@ -17,7 +17,11 @@ namespace AnotherCity.Models
         [Url]
         [Display(Name = "Any social link")]
         public string SocialLink { get; set; }
-        
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        public DateTime? ApplicationDate { get; set; }
+
         public virtual VolunteerOpportunity VolunteerOpportunity { get; set; }
     }
 }
