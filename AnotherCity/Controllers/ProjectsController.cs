@@ -330,14 +330,14 @@ namespace AnotherCity.Controllers
 
         public async Task<IActionResult> IndexAll()
         {
-            var anotherCityDbContext = _context.Projects
+            var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member);
             return View(await anotherCityDbContext.ToListAsync());
         }
 
         public async Task<IActionResult> PastProjects()
         {
-            var anotherCityDbContext = _context.Projects
+            var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0);
 
@@ -347,7 +347,7 @@ namespace AnotherCity.Controllers
 
         public async Task<IActionResult> CurrentProjects()
         {
-            var anotherCityDbContext = _context.Projects
+            var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1);
 
@@ -357,7 +357,7 @@ namespace AnotherCity.Controllers
 
         public async Task<IActionResult> FutureProjects()
         {
-            var anotherCityDbContext = _context.Projects
+            var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))>0);
 

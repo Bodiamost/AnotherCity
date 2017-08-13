@@ -14,8 +14,13 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 380px;
 }
+textarea {
+    max-width: 500px;
+    min-height: 250px;
+}
+
 
 /* Carousel */
 .carousel-caption p {

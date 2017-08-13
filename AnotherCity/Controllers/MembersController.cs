@@ -259,7 +259,7 @@ namespace AnotherCity.Controllers
 
         public async Task<IActionResult> IndexAll()
         {
-            var anotherCityDbContext = _context.Members
+            var anotherCityDbContext = _context.Members.Where(a => a.PhotoImg != null)
                                        .Include(m => m.Account)
                                        .Include(m => m.Position)
                                        .Include(m => m.MemberSocials);

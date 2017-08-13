@@ -21,7 +21,7 @@ namespace AnotherCity.Models
         public string Bio { get; set; }
         [Display(Name = "Photo")]
         public string PhotoImg { get; set; }
-        [Display(Name = "Key member?")]
+        [Display(Name = "Active member?")]
         public bool TopMember { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }

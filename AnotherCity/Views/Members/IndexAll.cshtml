@@ -11,7 +11,7 @@
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title no-padding-bottom">Key Persons of Organisation</h3>
+                    <h3 class="section-title no-padding-bottom">Current team</h3>
                 </div>
                 <!-- end section title -->
             </div>
@@ -27,8 +27,8 @@
                     <!-- key person item -->
                         <div class="col-md-4 col-sm-6 col-xs-12 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
                             <div class="key-person">
-                                @*<div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>*@
-                                <div class="key-person-img"><img src="http://via.placeholder.com/500x700" alt=""></div>
+                                <div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>
+                                @*<div class="key-person-img"><img src="http://via.placeholder.com/500x700" alt=""></div>*@
                                 <div class="key-person-details no-padding-bottom">
                                     <span class="person-name black-text">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span> <span class="person-post">@Html.DisplayFor(modelItem => item.Position.Title)</span>
                                     <div class="separator-line bg-yellow"></div>
@@ -62,12 +62,12 @@
     </section>
     <!-- end key person section -->
 </div>
-
+@*
 <section class=" no-padding-top">
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-8 text-center center-col">
-                <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600">Other team</p>
+                <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600">Founders</p>
             </div>
         </div>
         <div class="row">
@@ -83,8 +83,8 @@
                 {
                     <!-- team member -->
                     <div class="col-md-3 col-sm-4 text-center team-member position-relative wow fadeInUp" data-wow-duration="300ms">
-                        @*<img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt="" />*@
-                        <img src="http://via.placeholder.com/500x700" alt="" />
+                        <img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt="" />
+                        <!--<img src="http://via.placeholder.com/500x700" alt="" />-->
                         <figure class="position-relative bg-white">
                             <span class="team-name text-uppercase black-text letter-spacing-2 display-block font-weight-600">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span>
                             <span class="team-post text-uppercase letter-spacing-2 display-block">@Html.DisplayFor(modelItem => item.Position.Title)</span>
@@ -117,3 +117,63 @@
         </div>
     </div>
 </section>
+*@
+
+<div class="row no-padding">
+    <!-- key person section -->
+    <section id="key-person" class="wow fadeIn no-padding-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- section title -->
+                <div class="col-md-12 text-center">
+                    <h3 class="section-title no-padding-bottom">Founders</h3>
+                </div>
+                <!-- end section title -->
+            </div>
+
+            <div class="row margin-one">
+
+                @foreach (var item in Model)
+                {
+                    @if (!item.TopMember)
+                    {
+
+
+                    <!-- key person item -->
+                        <div class="col-md-4 col-sm-6 col-xs-12 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
+                            <div class="key-person">
+                                <div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>
+                                @*<div class="key-person-img"><img src="http://via.placeholder.com/500x700" alt=""></div>*@
+                                <div class="key-person-details no-padding-bottom">
+                                    <span class="person-name black-text">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span> <span class="person-post">@Html.DisplayFor(modelItem => item.Position.Title)</span>
+                                    <div class="separator-line bg-yellow"></div>
+                                    <div class="person-social hidden-xs">
+                                        @foreach (var social in item.MemberSocials)
+                                        {
+                                            @if (social.SocialId == 1)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-facebook"></i></a>
+                                            }
+                                            else if (social.SocialId == 2)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-google-plus"></i></a>
+                                            }
+                                            else if (social.SocialId == 3)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-linkedin"></i></a>
+                                            }
+                                        }
+                                    </div>
+
+                                    <p>@Html.DisplayFor(modelItem => item.Phone)<br />@Html.DisplayFor(modelItem => item.Email)</p>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- end key person item -->
+                    }
+                }
+            </div>
+        </div>
+    </section>
+    <!-- end key person section -->
+</div>
