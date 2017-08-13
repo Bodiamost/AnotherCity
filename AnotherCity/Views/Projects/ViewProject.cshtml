@@ -11,7 +11,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
             <div class="col-md-9 col-sm-9 padding-four  dividers-header double-line  text-center">
                 <div class="subheader bg-white">
                     <h1>@Model.Title</h1>
-                    <h2>Information</h2>
+                    <!--<h2>Information</h2>-->
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 no-padding wow fadeInUp text-right">
@@ -185,39 +185,40 @@ Layout = "~/Views/Shared/_Layout.cshtml";
             });
         });
     </script>
-    <script>
-        var geocoder;
-        var map;
-        var marker
-        function initMap() {
-            @{
-                if (Model.LatLng != null && Model.LatLng != "")
-                {
-                    <text>
-                        var uluru = new google.maps.LatLng(@Model.LatLng);
 
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 15,
-                            center: uluru
-                        });
-                        marker = new google.maps.Marker({
-                            position: uluru,
-                            map: map
-                        });
-                    </text>
+@{
+    if (Model.LatLng != null && Model.LatLng != "")
+    {
+        <text>
+            <script>
+                var map;
+                var marker
+
+                function initMap() {
+                    var uluru = new google.maps.LatLng(@Model.LatLng);
+
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: uluru
+                    });
+                    marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
                 }
-            }
+                //window.onload = function () {
+                $('a[href="#tab3_sec3"]').on('shown.bs.tab', function (e) {
+                    initMap();
+                });
 
-        }
-       //window.onload = function () {
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                initMap();
-            });
-
-       // }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
-    </script>
+                // }
+               
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
+            </script>
+        </text>
+    }
+}
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
