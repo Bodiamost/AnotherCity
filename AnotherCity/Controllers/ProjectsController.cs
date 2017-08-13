@@ -374,6 +374,7 @@ namespace AnotherCity.Controllers
             var project = await _context.Projects
                 .Include(p => p.Member)
                 .Include(p => p.Images)
+                .Include(p => p.ProjectSocials)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (project == null)
             {

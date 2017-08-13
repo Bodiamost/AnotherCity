@@ -15,8 +15,47 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 no-padding wow fadeInUp text-right">
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>122</strong> followers<i class="fa fa-vk fa-2x" aria-hidden="true"></i></h6>
-                <h6 class="black-text no-margin-top margin-one no-letter-spacing"><strong>122</strong> followers<i class="fa fa-facebook fa-2x" aria-hidden="true"></i></h6>
+                @foreach (var social in Model.ProjectSocials)
+                {  
+                    <h6 class="black-text no-margin-top no-letter-spacing">
+                    @if (social.SocialId == 1)
+                    {
+                        <a href="@social.ProjectLink">
+                             @if (social.Followers!= 0)
+                             {
+                                 <text>
+                                 <strong id="facebookNumber">@social.Followers</strong> followers 
+                                 </text>
+                             }
+                            <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                        </a>
+                    }
+                    else if (social.SocialId == 2)
+                    {
+                        <a href="@social.ProjectLink">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    }
+                    else if (social.SocialId == 3)
+                    {
+                        <a href="@social.ProjectLink">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    }
+                    else if (social.SocialId == 4)
+                    {
+                        <a href="@social.ProjectLink">
+                            @if (social.Followers != 0)
+                            {
+                                <text>
+                                <strong id="facebookNumber">@social.Followers</strong> followers
+                                </text>
+                            }
+                            <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                        </a>
+                    }
+                    </h6>
+                }
             </div>
         </div>
         <div class="row">
@@ -45,7 +84,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                             <!-- tab navigation -->
                             <ul class="nav nav-tabs nav-tabs-light text-left">
                                 <li class="active"><a href="#tab3_sec1" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                                <li><a href="#tab3_sec2" data-toggle="tab">Gallery</a></li>
+                                @if (Model.Images.Count!=0) {<li><a href="#tab3_sec2" data-toggle="tab">Gallery</a></li>}
                                 <li><a href="#tab3_sec3" data-toggle="tab">Location</a></li>
                                 <!--<li><a href="#tab3_sec4" data-toggle="tab">Comments(*)</a></li>-->
                             </ul>
@@ -64,20 +103,23 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                         </div>
                         <!-- end tab content -->
                         <!-- tab content -->
-                        <div class="tab-pane fade in" id="tab3_sec2">
-                            <div class="row zoom-gallery">
-                                @foreach (var img in Model.Images)
-                                {
+                        @if (Model.Images.Count != 0)
+                        {
+                            <div class="tab-pane fade in" id="tab3_sec2">
+                                <div class="row zoom-gallery">
+                                    @foreach (var img in Model.Images)
+                                    {
 
-                                    <div class="col-md-4 col-sm-6">
-                                        <!-- photo item -->
-                                        <a href="~/uploads/@img.Path"><img src="~/uploads/@img.Path" alt="" class="project-img-gallery"></a>
-                                        <!-- end photo item -->
-                                    </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <!-- photo item -->
+                                            <a href="~/uploads/@img.Path"><img src="~/uploads/@img.Path" alt="" class="project-img-gallery"></a>
+                                            <!-- end photo item -->
+                                        </div>
 
-                                }
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
                         <!-- end tab content -->
                         <!-- tab content -->
                         <div class="tab-pane fade in" id="tab3_sec3">
