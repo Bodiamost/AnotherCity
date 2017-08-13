@@ -207,12 +207,12 @@ Layout = "~/Views/Shared/_Layout.cshtml";
             }
 
         }
-        window.onload = function () {
-            $('a[href="#tab3_sec3"]').on('shown.bs.tab', function (e) {
+       //window.onload = function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 initMap();
             });
 
-        }
+       // }
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
