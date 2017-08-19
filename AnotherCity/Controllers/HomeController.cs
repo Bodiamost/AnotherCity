@@ -8,11 +8,13 @@ namespace AnotherCity.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("/home")]
         public IActionResult Index()
         {
             return RedirectToAction("IndexAll", "Projects");
         }
 
+        [Route("/about")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -20,6 +22,7 @@ namespace AnotherCity.Controllers
             return View();
         }
 
+        [Route("/contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -27,6 +30,7 @@ namespace AnotherCity.Controllers
             return View();
         }
 
+        [Route("/error")]
         public IActionResult Error()
         {
             return View();

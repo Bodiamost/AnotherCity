@@ -1,7 +1,7 @@
-@model IEnumerable<AnotherCity.Models.Member>
+﻿@model IEnumerable<AnotherCity.Models.Member>
 
 @{
-    ViewData["Title"] = "IndexAll";
+    ViewData["Title"] = "Команда";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row no-padding">
@@ -11,7 +11,7 @@
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title no-padding-bottom">Current team</h3>
+                    <h3 class="section-title padding-two-bottom">Поточний склад</h3>
                 </div>
                 <!-- end section title -->
             </div>
@@ -20,7 +20,7 @@
 
                 @foreach (var item in Model)
                 {
-                    @if (item.TopMember)
+                    @if (item.TopMember && item.PositionId!=2)
                     {
                         
 
@@ -123,14 +123,16 @@
 </section>
 *@
 
-<div class="row no-padding">
+@if (Model.FirstOrDefault(p=>p.TopMember==false && p.PositionId!=2)!=null)
+{
+<div class="row no-padding hidden-xs">
     <!-- key person section -->
     <section id="key-person" class="wow fadeIn no-padding-bottom">
         <div class="container">
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title no-padding-bottom">Founders</h3>
+                    <h3 class="section-title padding-two-bottom"> Учасники </h3>
                 </div>
                 <!-- end section title -->
             </div>
@@ -139,7 +141,71 @@
 
                 @foreach (var item in Model)
                 {
-                    @if (!item.TopMember)
+                    @if (!item.TopMember && item.PositionId != 2)
+                    {
+
+
+                    <!-- key person item -->
+                        <div class="col-md-4 col-sm-6 col-xs-12 bottom-margin text-center wow fadeInUp" data-wow-duration="300ms">
+                            <div class="key-person">
+                                <div class="key-person-img"><img src="~/uploads/profileimgs/@Html.DisplayFor(modelItem => item.PhotoImg)" alt=""></div>
+                                @*<div class="key-person-img"><img src="http://via.placeholder.com/500x700" alt=""></div>*@
+                                <div class="key-person-details no-padding-bottom">
+                                    <span class="person-name black-text">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span> <span class="person-post">@Html.DisplayFor(modelItem => item.Position.Title)</span>
+                                    <div class="separator-line bg-yellow"></div>
+                                    <div class="person-social hidden-xs">
+                                        @foreach (var social in item.MemberSocials)
+                                        {
+                                            @if (social.SocialId == 1)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-facebook"></i></a>
+                                            }
+                                            else if (social.SocialId == 2)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-google-plus"></i></a>
+                                            }
+                                            else if (social.SocialId == 3)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-linkedin"></i></a>
+                                            }
+                                            else if (social.SocialId == 4)
+                                            {
+                                                <a href="@social.PersonalLink"><i class="fa fa-vk"></i></a>
+                                            }
+                                        }
+                                    </div>
+
+                                    <p>@Html.DisplayFor(modelItem => item.Phone)<br />@Html.DisplayFor(modelItem => item.Email)</p>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- end key person item -->
+                    }
+                }
+            </div>
+        </div>
+    </section>
+    <!-- end key person section -->
+</div>
+}
+
+<div class="row no-padding">
+    <!-- key person section -->
+    <section id="key-person" class="wow fadeIn no-padding-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- section title -->
+                <div class="col-md-12 text-center">
+                    <h3 class="section-title padding-two-bottom"> Засновники</h3>
+                </div>
+                <!-- end section title -->
+            </div>
+
+            <div class="row margin-one">
+
+                @foreach (var item in Model)
+                {
+                    @if (item.PositionId == 2)
                     {
 
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,7 +103,7 @@ namespace AnotherCity.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ICollection<IFormFile> images,IFormFile MainImg,[Bind("Id,MemberId,Title,VolunteerOpp,InvestOpp,StartDate,FinishDate,ShortDesc,Description,Location,LatLng,SocialLinks,Status")] Project project)
+        public async Task<IActionResult> Create(ICollection<IFormFile> images,IFormFile MainImg,[Bind("Id,Featured,MemberId,Title,VolunteerOpp,InvestOpp,StartDate,FinishDate,ShortDesc,Description,Location,LatLng,SocialLinks,Status")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace AnotherCity.Controllers
                 
                 _context.Add(project);
                 await _context.SaveChangesAsync();
-                //hardcode need to be changed
+                
                 if(project.VolunteerOpp)
                 {
                     VolunteerOpportunity task = new VolunteerOpportunity();
@@ -197,7 +197,7 @@ namespace AnotherCity.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ICollection<IFormFile> images, IFormFile MainImg, int id, [Bind("Id,MemberId,Title,VolunteerOpp,InvestOpp,StartDate,FinishDate,ShortDesc,Description,Location,LatLng,SocialLinks,Status")] Project project)
+        public async Task<IActionResult> Edit(ICollection<IFormFile> images, IFormFile MainImg, int id, [Bind("Id,Featured,MemberId,Title,VolunteerOpp,InvestOpp,StartDate,FinishDate,ShortDesc,Description,Location,LatLng,SocialLinks,Status")] Project project)
         {
             if (id != project.Id)
             {
@@ -231,14 +231,8 @@ namespace AnotherCity.Controllers
                     }
                     _context.Update(project);
                     await _context.SaveChangesAsync();
-                    //hardcode need to be changed
-                    if (_context.VolunteerOpportunities.Any(opp => opp.ProjectId == project.Id))
-                    {
-                        VolunteerOpportunity oldTask = _context.VolunteerOpportunities.First(opp => opp.ProjectId == project.Id);
-                        _context.Remove(oldTask);
-                        await _context.SaveChangesAsync();
-                    }
-                    if (project.VolunteerOpp)
+                  
+                    if (project.VolunteerOpp && _context.VolunteerOpportunities.Any(opp => opp.ProjectId == project.Id))
                     {
                         VolunteerOpportunity task = new VolunteerOpportunity();
                         task.JobType = "Help";
@@ -247,7 +241,7 @@ namespace AnotherCity.Controllers
                         _context.Add(task);
                         await _context.SaveChangesAsync();
                     }
-                    //hardcode end
+
                     if (images != null)
                     {
 
@@ -328,6 +322,7 @@ namespace AnotherCity.Controllers
             return _context.Projects.Any(e => e.Id == id);
         }
 
+        [Route("")]
         public async Task<IActionResult> IndexAll()
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
@@ -335,35 +330,40 @@ namespace AnotherCity.Controllers
             return View(await anotherCityDbContext.ToListAsync());
         }
 
+        [Route("/past")]
         public async Task<IActionResult> PastProjects()
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0);
 
-            ViewData["Title"] = "Past projects";
+            ViewData["Title"] = "Минулі події";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
 
+        [Route("/active")]
         public async Task<IActionResult> CurrentProjects()
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1);
 
-            ViewData["Title"] = "Current projects";
+            ViewData["Title"] = "Поточні події";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
 
+        [Route("/future")]
         public async Task<IActionResult> FutureProjects()
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))>0);
 
-            ViewData["Title"] = "Future projects";
+            ViewData["Title"] = "Майбутні проекти";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
+
+        [Route("/project/{id}")]
         public async Task<IActionResult> ViewProject(int? id)
         {
             if (id == null)

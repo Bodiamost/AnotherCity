@@ -257,6 +257,7 @@ namespace AnotherCity.Controllers
             return _context.Members.Any(e => e.Id == id);
         }
 
+        [Route("/team")]
         public async Task<IActionResult> IndexAll()
         {
             var anotherCityDbContext = _context.Members.Where(a => a.PhotoImg != null)

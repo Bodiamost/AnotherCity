@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AnotherCity</title>
+    <title>@ViewData["Title"] | Інше Місто</title>
 
-    <meta name="description" content="H-Code - A premium portfolio template from ThemeZaa">
-    <meta name="keywords" content="">
+    <meta name="description" content="Інше Місто - це круто!">
+    <meta name="keywords" content="Drohobych, Інше Місто">
     <meta charset="utf-8">
-    <meta name="author" content="ThemeZaa">
+    <meta name="author" content="Bohdan Mostytskyy">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
     <!-- favicon -->
     <link rel="shortcut icon" href="/images/favicon.png">
@@ -100,32 +100,33 @@
                             <ul id="accordion" class="nav navbar-nav panel-group ">
                                 <!-- menu item -->
                                 <li class="dropdown panel simple-dropdown">
-                                    <a href="#collapse" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Events<i class="fa fa-angle-down"></i></a>
+                                    <a href="#collapse" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Події<i class="fa fa-angle-down"></i></a>
                                     <!-- sub menu single -->
                                     <!-- sub menu item  -->
                                     <ul id="collapse" class="dropdown-menu panel-collapse collapse" role="menu">
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="PastProjects">Old projects</a></li>
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="CurrentProjects">Active events</a></li>
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="FutureProjects">Plans for future</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="PastProjects">Минулі події</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="CurrentProjects">Поточні події</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="FutureProjects">Майбутні проекти</a></li>
                                     </ul>
                                     <!-- end sub menu item  -->
                                     <!-- end sub menu single -->
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">Volunteer</a>
+                                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">Поволонтерити</a>
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Members" asp-action="IndexAll">Team</a>
+                                    <a asp-area="" asp-controller="Members" asp-action="IndexAll">Команда</a>
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
                                 </li>
+                                @*
                                 <li class="dropdown panel">
                                     <a asp-area="" asp-controller="Home" asp-action="About">About</a>
                                 </li>
                                 <li class="dropdown panel">
                                     <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-                                </li>
+                                </li>*@
                                 <!-- end menu item -->
                             </ul>
                         </div>
@@ -141,7 +142,7 @@
         <div class="fadingEffect"></div>
     </div>
         <!-- end navigation panel -->
-    <div id="whole_page">
+    <div id="whole_page" class="content-padding-top">
         @RenderBody()
 
         <!-- footer -->
@@ -181,14 +182,14 @@
                     <div class="row margin-three">
                         <!-- copyright -->
                         <div class="col-md-6 col-sm-6 col-xs-12 copyright text-left letter-spacing-1 xs-text-center xs-margin-bottom-one">
-                            &copy; 2017 powered by Bohdan Mostytskyy.
+                            &copy; 2017 powered by <a class="gray-text" href="http://bohdanmost.com">Bohdan Mostytskyy</a>.
                         </div>
                         <!-- end copyright -->
-                        <!-- logo -->
+                        <!-- logo 
                         <div class="col-md-6 col-sm-6 col-xs-12 footer-logo text-right xs-text-center">
                             <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/images/logo-light.png" alt="" /></a>
                         </div>
-                        <!-- end logo -->
+                         end logo -->
                     </div>
                 </div>
             </div>

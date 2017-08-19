@@ -1,7 +1,7 @@
-@model AnotherCity.Models.Volunteer
+﻿@model AnotherCity.Models.Volunteer
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Волонтерство";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,13 +9,14 @@
 <section id="key-person" class="wow fadeIn no-padding below-header  bg-gray">
     <div class="container">
         <div class="row  padding-three">
-            <h2 class="text-center">Apply now</h2>
+            <h2 class="text-center">Форма</h2>
 
             <form class="col-md-8 center-col" asp-action="Create">
                 <div class="form-horizontal">
-                    <h4 class="text-center">To become a volunteer</h4>
+                    <h4 class="text-center">Волонтера</h4>
                     <hr />
-                    <div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="VK.Auth.login(authorize);">Use VK info</div>
+                    @*<div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="VK.Auth.login(authorize);">Use VK info</div>*@
+                    <div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="authorizeFacebook()">FACEBOOK</div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <select style="visibility: hidden;" asp-for="VolunteerOpportunityId" asp-items="ViewBag.OpportunityId"></select>
                     <div class="form-group">
@@ -63,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10 text-center">
-                            <input type="submit" value="Apply" class="btn btn-black no-margin-bottom btn-medium" />
+                            <input type="submit" value="Подати" class="btn btn-black no-margin-bottom btn-medium" />
                         </div>
                     </div>
                 </div>
@@ -74,9 +75,44 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>
+@*<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>*@
 <script language="javascript">
-    VK.init({
+    
+  window.fbAsyncInit = function() {
+            FB.init({
+                appId: '140233579907957',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.10'
+            });
+        FB.AppEvents.logPageView();
+    };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+    authorizeFacebook = function () {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                FB.api('/me?fields=id,email,first_name,last_name,link', function (response) {
+                    console.log(response);
+                    $('#FirstName').val(response.first_name);
+                    $('#LastName').val(response.last_name);
+                    $('#Email').val(response.email);
+                    $('#SocialLink').val(response.link);
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, { scope: 'email,user_likes,publish_actions,public_profile' });
+    }
+    
+    /*VK.init({
         apiId: 4897507
     });
     function authorize(response) {
@@ -90,7 +126,7 @@
         }
     }
 
-    /*VK.Api.call('account.getProfileInfo', { fields: 'last_name,first_name' }, function (data) {
+    VK.Api.call('account.getProfileInfo', { fields: 'last_name,first_name' }, function (data) {
         //alert(data.response.length);
         if (data.error) {
             //alert(data.error.error_msg);

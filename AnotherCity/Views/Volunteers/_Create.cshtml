@@ -1,9 +1,10 @@
-@model AnotherCity.Models.Volunteer
+﻿@model AnotherCity.Models.Volunteer
 
 <form id="volunteer_form" asp-controller="Volunteer" asp-action="PostVolunteerForm" data-ajax="true" data-ajax-method="POST">
     <div class="form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="VK.Auth.login(authorize);">Use VK info</div>
+        @*<div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="VK.Auth.login(authorize);">Use VK info</div>*@
+        <div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="authorizeFacebook()">FACEBOOK</div>
         <select style="visibility: hidden;" asp-for="VolunteerOpportunityId" asp-items="ViewBag.OpportunityId"></select>
         <div class="form-group">
             <label asp-for="FirstName" class="col-md-3 control-label"></label>
@@ -64,7 +65,41 @@
 </script>
 
 <script language="javascript">
-        VK.init({
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '140233579907957',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v2.10'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    authorizeFacebook = function () {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                FB.api('/me?fields=id,email,first_name,last_name,link', function (response) {
+                    console.log(response);
+                    $('#FirstName').val(response.first_name);
+                    $('#LastName').val(response.last_name);
+                    $('#Email').val(response.email);
+                    $('#SocialLink').val(response.link);
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, { scope: 'email,user_likes,publish_actions,public_profile' });
+    }
+    /*    VK.init({
             apiId: 4897507
     });
     function authorize(response) {
@@ -78,7 +113,7 @@
         }
         }
 
-    /*VK.Api.call('account.getProfileInfo', {fields: 'last_name,first_name' }, function (data) {
+    VK.Api.call('account.getProfileInfo', {fields: 'last_name,first_name' }, function (data) {
         //alert(data.response.length);
         if (data.error) {
             //alert(data.error.error_msg);

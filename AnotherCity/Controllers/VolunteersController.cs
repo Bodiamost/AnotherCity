@@ -137,6 +137,8 @@ namespace AnotherCity.Controllers
             return _context.Volunteers.Any(e => e.Id == id);
         }
 
+
+        [Route("/volunteer")]
         // GET: Volunteers/Create
         public IActionResult Create(int id=0)
         {
@@ -148,6 +150,7 @@ namespace AnotherCity.Controllers
         // POST: Volunteers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("/volunteer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Bio,SocialLink,VolunteerOpportunityId,FirstName,LastName,Email,Phone")] Volunteer volunteer)

@@ -47,6 +47,8 @@ namespace AnotherCity.Models
         [Required]
         public string Status { get; set; }
 
+        public bool Featured { get; set; }
+
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<InvestOpportunity> InvestOpportunities { get; set; }
         public virtual ICollection<VolunteerOpportunity> VolunteerOpportunities { get; set; }

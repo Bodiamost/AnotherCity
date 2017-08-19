@@ -1,7 +1,7 @@
-@model IEnumerable<AnotherCity.Models.Project>
+﻿@model IEnumerable<AnotherCity.Models.Project>
 
 @{
-    ViewData["Title"] = "All projects";
+    ViewData["Title"] = " Головна";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,25 +9,25 @@
     <div class="container">
         <div class="row">
             
-            @if (Model.Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <= 1).Count() != 0)
+            @if (Model.Where(d => d.Featured==true).Count() != 0)
             {
-                <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Current projects</h3>
-                @await Html.PartialAsync("_SliderItems", Model.Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <= 1).OrderBy(s => s.FinishDate))
+                <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Мега круті проекти</h3>
+                @await Html.PartialAsync("_SliderItems", Model.Where(d =>d.Featured==true).OrderBy(s => s.FinishDate))
             }
-            @if (Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > 0).Count() != 0)
+            @if (Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > -30 && d.Featured==false).Count() != 0)
             {
-                <h3 class="hidden-lg hidden-md hidden-sm title-med  text-center">Future projects</h3>
-                @await Html.PartialAsync("_RightItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > 0).OrderBy(s => s.StartDate))
+                <h3 class="hidden-lg hidden-md hidden-sm title-med  text-center">Поточні проекти</h3>
+                @await Html.PartialAsync("_RightItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > -30 && d.Featured == false).OrderBy(s => s.StartDate))
             }
         </div>
     </div>
 </section>
-@if (Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0).Count() != 0)
+@if (Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) <= -30 && d.Featured == false).Count() != 0)
 {
     <section id="blog" class="bg-gray no-padding-top">
         <div class="container">
-            <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Old projects</h3>
-            @await Html.PartialAsync("_BottomItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0).OrderByDescending(s => s.StartDate))
+            <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Минулі проекти</h3>
+            @await Html.PartialAsync("_BottomItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) <= -30 && d.Featured == false).OrderByDescending(s => s.StartDate))
         </div>
     </section>
 }

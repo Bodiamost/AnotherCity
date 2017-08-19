@@ -1,8 +1,8 @@
-@model AnotherCity.Models.Project
+﻿@model AnotherCity.Models.Project
 @inject AnotherCity.Services.FormattingService Format
 
 @{
-ViewData["Title"] = "ViewProject";
+ViewData["Title"] = Model.Title;
 Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="bg-gray no-padding below-header">
@@ -60,7 +60,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         </div>
         <div class="row">
             <div class="col-md-3">
-                <h2 class="margin-bottom text-center">Details</h2>
+                <h2 class="margin-bottom text-center">Інформація</h2>
                 <h6 class="black-text no-margin-top no-letter-spacing"><strong>Organizator: </strong>@Model.Member.FirstName @Model.Member.LastName </h6>
                 <h6 class="black-text no-margin-top no-letter-spacing"><strong>Date: </strong>@Format.AsReadableDate(Model.StartDate) </h6>
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
@@ -72,7 +72,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 @if (Model.VolunteerOpp)
                 {
                     <div class="hidden-lg hidden-md"><a asp-controller="Volunteers" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-black btn-medium">Become a volunteer</a></div>
-                    <div id="become_a_volunteer" class="btn btn-black btn-medium hidden-sm hidden-xs">Become a volunteer</div>
+                    <div id="become_a_volunteer" class="btn btn-black btn-medium hidden-sm hidden-xs">Допомогти</div>
                 }
             </div>
 
@@ -84,8 +84,8 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                             <!-- tab navigation -->
                             <ul class="nav nav-tabs nav-tabs-light text-left">
                                 <li class="active"><a href="#tab3_sec1" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                                @if (Model.Images.Count!=0) {<li><a href="#tab3_sec2" data-toggle="tab">Gallery</a></li>}
-                                <li><a href="#tab3_sec3" data-toggle="tab">Location</a></li>
+                                @if (Model.Images.Count!=0) {<li><a href="#tab3_sec2" data-toggle="tab">Фотогалерея</a></li>}
+                                <li><a href="#tab3_sec3" data-toggle="tab">Карта</a></li>
                                 <!--<li><a href="#tab3_sec4" data-toggle="tab">Comments(*)</a></li>-->
                             </ul>
                             <!-- end tab navigation -->
@@ -163,16 +163,16 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         $("#become_a_volunteer").on('click', function () { 
             var url = "/api/Volunteers/GetVolunteerForm/" +@Model.Id;
             $.confirm({
-                title: 'Become a volunteer!',
+                title: 'Приєднатись до команди!',
                 /*confirmButton: 'Apply!',
                 cancelButton: 'Later',
                 confirmButtonClass: 'btn-black',
                 cancelButtonClass: 'btn-black',*/
-                columnClass: 'col-md-6 col-md-offset-3',
+                columnClass: 'col-md-7 col-md-offset-2',
                 content: 'url:' + url,
                 buttons: {
                     formSubmit: {
-                        text: 'Apply!',
+                        text: 'Подати!',
                         btnClass: 'btn-black',
                         action: function () {
                             var self = this;
@@ -194,8 +194,8 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                                     }
                                     else {
                                         $.alert({
-                                            title: 'Well done!',
-                                            content: 'You request is saved!',
+                                            title: 'Дякуємо!',
+                                            content: 'Ваш запит прийнято!',
                                         });
                                         self.close();
                                     }
@@ -210,12 +210,12 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                         }
                     },
                     cancel:{
-                        text: 'Later',
+                        text: 'Пізніше',
                         btnClass: 'btn-grey',
                         action: function () {
                             $.alert({
                                 title: ':(',
-                                content: 'Don`t miss a chance to work together!!',
+                                content: 'Не гай часу, друже!',
                             });
                             return true;
                         }
@@ -264,6 +264,6 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>
+@*<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>*@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
