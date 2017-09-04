@@ -348,7 +348,7 @@ namespace AnotherCity.Controllers
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
                 .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1)
-                .OrderBy(s => s.StartDate);
+                .OrderByDescending(s => s.FinishDate);
             
             ViewData["Title"] = "Поточні події";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
