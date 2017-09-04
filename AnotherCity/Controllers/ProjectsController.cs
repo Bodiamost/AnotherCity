@@ -335,8 +335,9 @@ namespace AnotherCity.Controllers
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
-                .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < 0);
-
+                .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < -1)
+                .OrderByDescending(s => s.StartDate);
+            
             ViewData["Title"] = "Минулі події";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
@@ -346,8 +347,9 @@ namespace AnotherCity.Controllers
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
-                .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1);
-
+                .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1)
+                .OrderBy(s => s.StartDate);
+            
             ViewData["Title"] = "Поточні події";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
@@ -357,7 +359,8 @@ namespace AnotherCity.Controllers
         {
             var anotherCityDbContext = _context.Projects.Where(p => p.MainImg != null)
                 .Include(p => p.Member)
-                .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))>0);
+                .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))>1)
+                .OrderBy(s => s.StartDate);
 
             ViewData["Title"] = "Майбутні проекти";
             return View("IndexSome", await anotherCityDbContext.ToListAsync());

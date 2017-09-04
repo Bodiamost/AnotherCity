@@ -9,11 +9,11 @@
                 <a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id">
                     <img src="~/uploads/@item.MainImg" alt="" />
                     @*<img src="http://via.placeholder.com/1020x720" alt="" />*@
-        </a>
-    </div>
-    <div class="blog-details">
-        <div class="blog-date">
-            @*Hosted by <a asp-controller="Members" asp-action="IndexAll">@item.Member.FirstName @item.Member.LastName</a> | *@
+                </a>
+            </div>
+            <div class="blog-details">
+                <div class="blog-date">
+                    @*Hosted by <a asp-controller="Members" asp-action="IndexAll">@item.Member.FirstName @item.Member.LastName</a> | *@
                     @Format.AsReadableDate(item.StartDate)
                 </div>
                 <div class="blog-title"><a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id">@item.Title</a></div>
