@@ -8,9 +8,10 @@ using AnotherCity.Data;
 namespace AnotherCity.Migrations
 {
     [DbContext(typeof(AnotherCityDbContext))]
-    partial class AnotherCityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170904231543_Project-Desc_lenght4096")]
+    partial class ProjectDesc_lenght4096
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

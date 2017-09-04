@@ -36,7 +36,7 @@ namespace AnotherCity.Models
         public string ShortDesc { get; set; }
         [Required]
         [MinLength(5)]
-        [MaxLength(1024)]
+        [MaxLength(4096)]
         public string Description { get; set; }
         public string MainImg { get; set; }
         [Required]
