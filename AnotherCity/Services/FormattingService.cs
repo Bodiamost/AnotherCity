@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Threading;
 
 namespace AnotherCity.Services
 {
@@ -9,9 +11,10 @@ namespace AnotherCity.Services
     {
         public string AsReadableDate(DateTime? date)
         {
+            CultureInfo ci = new CultureInfo("uk-UA");
             if (date != null)
             {
-                return  date.Value.ToString("D");
+                return  date.Value.ToString("D", ci);
             }
             else
             {

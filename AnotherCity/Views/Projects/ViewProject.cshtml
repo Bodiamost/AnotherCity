@@ -24,7 +24,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                              @if (social.Followers!= 0)
                              {
                                  <text>
-                                 <strong id="facebookNumber">@social.Followers</strong> followers 
+                                 <strong id="facebookNumber">@social.Followers</strong> слідкують  
                                  </text>
                              }
                             <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
@@ -48,7 +48,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                             @if (social.Followers != 0)
                             {
                                 <text>
-                                <strong id="vkNumber">@social.Followers</strong> followers
+                                <strong id="vkNumber">@social.Followers</strong> слідкують
                                 </text>
                             }
                             <i class="fa fa-vk fa-2x" aria-hidden="true"></i>
@@ -61,13 +61,28 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         <div class="row">
             <div class="col-md-3">
                 <h2 class="margin-bottom text-center">Інформація</h2>
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>Organizator: </strong>@Model.Member.FirstName @Model.Member.LastName </h6>
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>Date: </strong>@Format.AsReadableDate(Model.StartDate) </h6>
-                <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>Start time: </strong>@Format.AsReadableTime(Model.StartDate) </h6>
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>End time: </strong>@Format.AsReadableTime(Model.FinishDate) </h6>
-                <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
-                <h6 class="black-text no-margin-top no-letter-spacing"><strong>Location: </strong>@Model.Location </h6>
+
+                <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Відповідальний: </strong></h6>
+                <p class="black-text no-margin-top no-letter-spacing">@Model.Member.FirstName @Model.Member.LastName </p>
+
+                @if (Format.AsReadableDate(Model.StartDate) == Format.AsReadableDate(Model.FinishDate))
+                {
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Дата: </strong>@Format.AsReadableDate(Model.StartDate) </h6>
+                    <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
+                    <h6 class="black-text no-margin-top no-letter-spacing"><strong>Початок: </strong>@Format.AsReadableTime(Model.StartDate) </h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Завершення: </strong>@Format.AsReadableTime(Model.FinishDate) </h6>
+                    <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
+                }
+                else
+                {
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Початок: </strong></h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing">@Format.AsReadableDate(Model.StartDate)  @Format.AsReadableTime(Model.StartDate)</h6>
+                    <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Завершення: </strong></h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing">@Format.AsReadableDate(Model.FinishDate)  @Format.AsReadableTime(Model.FinishDate)</h6>
+                    <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
+                }
+                <h6 class="black-text no-margin-top  margin-five-bottom no-letter-spacing"><strong>Місце: </strong>@Model.Location</h6>
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 @if (Model.VolunteerOpp)
                 {
