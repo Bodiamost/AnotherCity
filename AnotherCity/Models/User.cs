@@ -11,22 +11,22 @@ namespace AnotherCity.Models
         public int Id { get; set; }
         [Required]
         [RegularExpression(@"([A-Z][a-z]+)",ErrorMessage ="Please enter correct name!")]
-        [Display(Name = "First name")]
+        [Display(Name = "Ім'я")]
         public string FirstName { get; set; }
         [Required]
         [RegularExpression(@"([A-Z][a-z]+)", ErrorMessage = "Please enter correct name!")]
-        [Display(Name = "Last name")]
+        [Display(Name = "Прізвище")]
         public string LastName { get; set; }
         [Required]
         [EmailAddress]
-        [Display(Name = "Contact email")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
         [Required]
         [Phone]
-        [Display(Name = "Contact phone")]
+        [Display(Name = "Телефон")]
         public string Phone { get; set; }
 
-        [Display(Name = "Account")]
+        [Display(Name = "Аккаунт")]
         public int? AccountId { get; set; }
 
         public virtual Account Account { get; set; }

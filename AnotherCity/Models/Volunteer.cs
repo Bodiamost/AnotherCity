@@ -11,11 +11,11 @@ namespace AnotherCity.Models
         [Required]
         [MinLength(30)]
         [MaxLength(1024)]
-        [Display(Name = "Additional information")]
+        [Display(Name = "Додаткова інформація")]
         public string Bio { get; set; }
 
         [Url]
-        [Display(Name = "Any social link")]
+        [Display(Name = "Сторінка в соцмережі")]
         public string SocialLink { get; set; }
 
         [DataType(DataType.DateTime)]

@@ -12,16 +12,16 @@ namespace AnotherCity.Models
         }
 
         [Required]
-        [Display(Name = "Position")]
+        [Display(Name = "Позиція")]
         public int PositionId { get; set; }
         [Required]
         [MinLength(5)]
         [MaxLength(1024)]
-        [Display(Name = "Bio")]
+        [Display(Name = "Біографія")]
         public string Bio { get; set; }
-        [Display(Name = "Photo")]
+        [Display(Name = "Фото")]
         public string PhotoImg { get; set; }
-        [Display(Name = "Active member?")]
+        [Display(Name = "Учасник?")]
         public bool TopMember { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }
