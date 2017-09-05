@@ -26,9 +26,10 @@ namespace AnotherCity.Models
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
 
-        [Display(Name = "Аккаунт")]
+        [Display(Name = "Аккаунт ID")]
         public int? AccountId { get; set; }
 
+        [Display(Name = "Аккаунт")]
         public virtual Account Account { get; set; }
     }
 }

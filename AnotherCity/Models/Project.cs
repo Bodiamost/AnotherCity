@@ -62,8 +62,11 @@ namespace AnotherCity.Models
         [Display(Name = "У слайдер?")]
         public bool Featured { get; set; }
 
+        [Display(Name = "Галерея")]
         public virtual ICollection<Image> Images { get; set; }
+        [Display(Name = "Волонтери?")]
         public virtual ICollection<InvestOpportunity> InvestOpportunities { get; set; }
+        [Display(Name = "Інвестори?")]
         public virtual ICollection<VolunteerOpportunity> VolunteerOpportunities { get; set; }
         [Display(Name = "Відповідальний")]
         public virtual Member Member { get; set; }

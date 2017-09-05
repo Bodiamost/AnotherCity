@@ -44,9 +44,11 @@ namespace AnotherCity.API
             if (!ModelState.IsValid)
             {
                 return PartialView("_Create",volunteer);
+
                 //return BadRequest(ModelState);
             }
 
+            volunteer.ApplicationDate = DateTime.Now;
             _context.Volunteers.Add(volunteer);
             await _context.SaveChangesAsync();
 

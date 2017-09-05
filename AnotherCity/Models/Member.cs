@@ -12,7 +12,7 @@ namespace AnotherCity.Models
         }
 
         [Required]
-        [Display(Name = "Позиція")]
+        [Display(Name = "Позиція ID")]
         public int PositionId { get; set; }
         [Required]
         [MinLength(5)]
@@ -24,8 +24,11 @@ namespace AnotherCity.Models
         [Display(Name = "Учасник?")]
         public bool TopMember { get; set; }
 
+        [Display(Name = "Проекти")]
         public virtual ICollection<Project> Projects { get; set; }
+        [Display(Name = "Позиція")]
         public virtual Positions Position { get; set; }
+        [Display(Name = "Соціалки")]
         public ICollection<MemberSocials> MemberSocials { get; set; }
     }
 }
