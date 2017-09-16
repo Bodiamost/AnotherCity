@@ -1,4 +1,7 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,20 +76,27 @@
                     <div class="col-md-2 pull-left"><a class="logo-light" asp-area="" asp-controller="Home" asp-action="Index"><img alt="" src="/images/logo-light.png" class="logo-style-2" /></a><a class="logo-dark" asp-area="" asp-controller="Home" asp-action="Index"><img alt="" src="/images/logo-light.png" class="logo-style-2" /></a></div>
                     <!-- end logo -->
                     <!-- search and cart  -->
-                    <div class="col-md-2 no-padding-left search-cart-header pull-right">
-                        <div id="top-search">
-                            <!-- nav search -->
-                            <a href="#search-header" class="header-search-form"><i class="fa fa-search search-button"></i></a>
-                            <!-- end nav search -->
-                        </div>
-                        <!-- search input-->
-                        <form id="search-header" method="post" action="#" name="search-header" class="mfp-hide search-form-result">
-                            <div class="search-form position-relative">
-                                <button type="submit" class="fa fa-search close-search search-button"></button>
-                                <input type="text" name="search" class="search-input" placeholder="Enter your keywords..." autocomplete="off">
+                    <div class="col-md-2 hidden-sm hidden-xs no-padding-left search-cart-header pull-right">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="top-search">
+                                    <!-- nav search -->
+                                    <a href="#search-header" class="header-search-form"><i class="fa fa-search search-button"></i></a>
+                                    <!-- end nav search -->
+
+
+                                </div>
+                                <!-- search input-->
+                                <form id="search-header" method="post" action="#" name="search-header" class="mfp-hide search-form-result">
+                                    <div class="search-form position-relative">
+                                        <button type="submit" class="fa fa-search close-search search-button"></button>
+                                        <input type="text" name="search" class="search-input" placeholder="Enter your keywords..." autocomplete="off">
+                                    </div>
+                                </form>
+                                <!-- end search input -->
                             </div>
-                        </form>
-                        <!-- end search input -->
+                            <div class="col-md-6">@await Html.PartialAsync("_SelectLanguagePartial")      </div>
+                        </div>
                     </div>
                     <!-- end search and cart  -->
                     <!-- toggle navigation -->
@@ -100,25 +110,25 @@
                             <ul id="accordion" class="nav navbar-nav panel-group ">
                                 <!-- menu item -->
                                 <li class="dropdown panel simple-dropdown">
-                                    <a href="#collapse" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Події<i class="fa fa-angle-down"></i></a>
+                                    <a href="#collapse" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">@Localizer["Nav_Events"]<i class="fa fa-angle-down"></i></a>
                                     <!-- sub menu single -->
                                     <!-- sub menu item  -->
                                     <ul id="collapse" class="dropdown-menu panel-collapse collapse" role="menu">
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="PastProjects">Минулі події</a></li>
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="CurrentProjects">Поточні події</a></li>
-                                        <li><a asp-area="" asp-controller="Projects" asp-action="FutureProjects">Майбутні проекти</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="PastProjects">@Localizer["Nav_PastEvents"]</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="CurrentProjects">@Localizer["Nav_CurrentEvents"]</a></li>
+                                        <li><a asp-area="" asp-controller="Projects" asp-action="FutureProjects">@Localizer["Nav_FutureEvents"]</a></li>
                                     </ul>
                                     <!-- end sub menu item  -->
                                     <!-- end sub menu single -->
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">Поволонтерити</a>
+                                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">@Localizer["Nav_Volunteer"]</a>
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Members" asp-action="IndexAll">Команда</a>
+                                    <a asp-area="" asp-controller="Members" asp-action="IndexAll">@Localizer["Nav_Team"]</a>
                                 </li>
                                 <li class="dropdown panel">
-                                    <a asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Contact">@Localizer["Nav_ContactUs"]</a>
                                 </li>
                                 @*
                                 <li class="dropdown panel">

@@ -12,6 +12,7 @@
     <UserSecretsId>aspnet-AnotherCity-b7b9ab67-fd39-44ed-b735-4c76a846ec7f</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
@@ -36,6 +37,22 @@
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="wwwroot\uploads\profileimgs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views.Home.Contact.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Contact.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Shared._Layout.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Views.Shared._Layout.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Shared._Layout.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Views.Shared._Layout.ua.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,9 @@ using AnotherCity.Models;
 using AnotherCity.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
 
 namespace AnotherCity
 {
@@ -51,7 +54,12 @@ namespace AnotherCity
                 .AddEntityFrameworkStores<AnotherCityDbContext,int>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
+              .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+              .AddDataAnnotationsLocalization();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AddEditUser", policy => {
@@ -61,6 +69,23 @@ namespace AnotherCity
                 options.AddPolicy("DeleteUser", policy => policy.RequireClaim("Delete User", "Delete User"));
             });
 
+            CultureInfo[] supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("uk")
+            };
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("uk");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                };
+            });
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -83,8 +108,8 @@ namespace AnotherCity
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseRequestLocalization();
             app.UseStaticFiles();
-
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
@@ -96,6 +121,8 @@ namespace AnotherCity
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             //await CreateRoles(serviceProvider);
+
+
             DbInitializer.Initialize(context);
         }
 

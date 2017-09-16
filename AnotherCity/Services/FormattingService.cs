@@ -11,7 +11,7 @@ namespace AnotherCity.Services
     {
         public string AsReadableDate(DateTime? date)
         {
-            CultureInfo ci = new CultureInfo("uk-UA");
+            CultureInfo ci = CultureInfo.CurrentCulture;
             if (date != null)
             {
                 return  date.Value.ToString("D", ci);
