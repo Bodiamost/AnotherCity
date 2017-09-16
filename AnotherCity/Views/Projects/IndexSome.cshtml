@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<AnotherCity.Models.Project>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,7 +14,7 @@
                 <h1 class="black-text text-center">@ViewData["Title"]</h1>
                 <!-- end page title -->
                 <!-- page title tagline -->
-                <span class="xs-display-none">Дізнайтесь більше про нашу діяльність!</span>
+                <span class="xs-display-none">@Localizer["Projects_LearnMore"]</span>
                 <!-- end title tagline -->
                 <div class="separator-line margin-three bg-black no-margin-lr sm-margin-top-three sm-margin-bottom-three no-margin-bottom xs-display-none"></div>
             </div>
@@ -29,7 +32,7 @@
         else
         { 
             <div class="empty-result">
-                <h4 class="text-center">Інформація про проекти відсутня :(</h4>
+                <h4 class="text-center">@Localizer["Projects_LearnMore"]</h4>
             </div>
         }
     </div>

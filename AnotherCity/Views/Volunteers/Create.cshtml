@@ -1,7 +1,8 @@
 ﻿@model AnotherCity.Models.Volunteer
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Волонтерство";
+    ViewData["Title"] = Localizer["Volunteers_Title"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,11 +10,11 @@
 <section id="key-person" class="wow fadeIn no-padding below-header  bg-gray">
     <div class="container">
         <div class="row  padding-three">
-            <h2 class="text-center">Форма</h2>
+            <h2 class="text-center">@Localizer["Volunteers_Form"]</h2>
 
             <form class="col-md-8 center-col" asp-action="Create">
                 <div class="form-horizontal">
-                    <h4 class="text-center">Волонтера</h4>
+                    <h4 class="text-center">@Localizer["Volunteers_Volunteer"]</h4>
                     <hr />
                     @*<div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="VK.Auth.login(authorize);">Use VK info</div>*@
                     <div id="login_button" class="btn btn-black no-margin-bottom btn-medium" onclick="authorizeFacebook()">FACEBOOK</div>
@@ -64,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10 text-center">
-                            <input type="submit" value="Подати" class="btn btn-black no-margin-bottom btn-medium" />
+                            <input type="submit" value="@Localizer["Volunteers_Apply"]" class="btn btn-black no-margin-bottom btn-medium" />
                         </div>
                     </div>
                 </div>

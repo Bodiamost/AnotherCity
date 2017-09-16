@@ -11,6 +11,8 @@ using AnotherCity.Utilities;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace AnotherCity.Controllers
 {
@@ -18,12 +20,15 @@ namespace AnotherCity.Controllers
     public class ProjectsController : Controller
     {
         private readonly AnotherCityDbContext _context;
+        private readonly IStringLocalizer<ProjectsController> _localizer;
 
-        public ProjectsController(AnotherCityDbContext context)
+        public ProjectsController(AnotherCityDbContext context,IStringLocalizer<ProjectsController> localizer)
         {
             _context = context;    
+            _localizer = localizer;
         }
-
+        
+        
         // GET: Projects
         [Authorize]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -338,7 +343,7 @@ namespace AnotherCity.Controllers
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) < -1)
                 .OrderByDescending(s => s.StartDate);
             
-            ViewData["Title"] = "Минулі події";
+            ViewData["Title"] = _localizer["Projects_Past"];
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
 
@@ -350,7 +355,7 @@ namespace AnotherCity.Controllers
                 .Where(d => Math.Abs(((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))) <=1)
                 .OrderByDescending(s => s.FinishDate);
             
-            ViewData["Title"] = "Поточні події";
+            ViewData["Title"] = _localizer["Projects_Current"];
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
 
@@ -362,7 +367,7 @@ namespace AnotherCity.Controllers
                 .Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year))>1)
                 .OrderBy(s => s.StartDate);
 
-            ViewData["Title"] = "Майбутні проекти";
+            ViewData["Title"] = _localizer["Projects_Future"];
             return View("IndexSome", await anotherCityDbContext.ToListAsync());
         }
 

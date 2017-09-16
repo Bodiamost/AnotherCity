@@ -2,7 +2,7 @@
 @inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Контактна інформація";
+    ViewData["Title"] = Localizer["Contact_Title"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -72,7 +72,7 @@
     <div class="container position-relative">
         <div class="row">
             <div class="col-md-5 col-sm-6 center-col text-center">
-                <p class="title-large text-uppercase letter-spacing-2 white-text font-weight-600">Є ідеї ? Давай втілимо їх разом!</p>
+                <p class="title-large text-uppercase letter-spacing-2 white-text font-weight-600">@Localizer["Contact_Ideas"]</p>
             </div>
         </div>
     </div>

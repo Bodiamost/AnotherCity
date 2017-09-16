@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Contact_Ideas" xml:space="preserve">
-    <value>Have an idea? Let's work on it! </value>
+  <data name="Team_Active" xml:space="preserve">
+    <value>Поточний склад</value>
   </data>
-  <data name="Contact_Title" xml:space="preserve">
-    <value>Contact Information</value>
+  <data name="Team_Founders" xml:space="preserve">
+    <value>Засновники</value>
+  </data>
+  <data name="Team_People" xml:space="preserve">
+    <value>Учасники</value>
+  </data>
+  <data name="Team_Title" xml:space="preserve">
+    <value>Команда</value>
   </data>
 </root>

@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<AnotherCity.Models.Member>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Команда";
+    ViewData["Title"] = Localizer["Team_Title"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row no-padding">
@@ -11,7 +13,7 @@
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title padding-two-bottom">Поточний склад</h3>
+                    <h3 class="section-title padding-two-bottom">@Localizer["Team_Active"]</h3>
                 </div>
                 <!-- end section title -->
             </div>
@@ -132,7 +134,7 @@
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title padding-two-bottom"> Учасники </h3>
+                    <h3 class="section-title padding-two-bottom"> @Localizer["Team_People"] </h3>
                 </div>
                 <!-- end section title -->
             </div>
@@ -196,7 +198,7 @@
             <div class="row">
                 <!-- section title -->
                 <div class="col-md-12 text-center">
-                    <h3 class="section-title padding-two-bottom"> Засновники</h3>
+                    <h3 class="section-title padding-two-bottom">@Localizer["Team_Founders"]</h3>
                 </div>
                 <!-- end section title -->
             </div>

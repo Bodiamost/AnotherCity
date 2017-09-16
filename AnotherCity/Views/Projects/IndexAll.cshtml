@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<AnotherCity.Models.Project>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = " Головна";
+    ViewData["Title"] = Localizer["Projects_Title"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,12 +13,12 @@
             
             @if (Model.Where(d => d.Featured==true).Count() != 0)
             {
-                <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Мега круті проекти</h3>
+                <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">@Localizer["Projects_Featured"]</h3>
                 @await Html.PartialAsync("_SliderItems", Model.Where(d =>d.Featured==true).OrderBy(s => s.FinishDate))
             }
             @if (Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > 1 && d.Featured==false).Count() != 0)
             {
-                <h3 class="hidden-lg hidden-md hidden-sm title-med  text-center">Поточні проекти</h3>
+                <h3 class="hidden-lg hidden-md hidden-sm title-med  text-center">@Localizer["Projects_Current"]</h3>
                 @await Html.PartialAsync("_RightItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) > 1 && d.Featured == false).OrderBy(s => s.StartDate))
             }
         </div>
@@ -26,7 +28,7 @@
 {
     <section id="blog" class="bg-gray">
         <div class="container">
-            <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">Минулі проекти</h3>
+            <h3 class="hidden-lg hidden-md hidden-sm title-med text-center">@Localizer["Projects_Past"]</h3>
             @await Html.PartialAsync("_BottomItems", Model.Where(d => ((d.StartDate.Value.Month - DateTime.Now.Month) + 12 * (d.StartDate.Value.Year - DateTime.Now.Year)) <= 1 && d.Featured == false).OrderByDescending(s => s.StartDate))
         </div>
     </section>
