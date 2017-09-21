@@ -16,8 +16,8 @@
                     @*Hosted by <a asp-controller="Members" asp-action="IndexAll">@item.Member.FirstName @item.Member.LastName</a> | *@
                     @Format.AsReadableDate(item.StartDate)
                 </div>
-                <div class="blog-title"><a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id">@item.Title</a></div>
-                <div class="blog-short-description">@item.ShortDesc</div>
+                <div class="blog-title"><a asp-controller="Projects" asp-action="ViewProject" asp-route-id="@item.Id" class="to-be-translated">@item.Title</a></div>
+                <div class="blog-short-description to-be-translated" >@item.ShortDesc</div>
                 @*<div class="separator-line bg-black no-margin-lr"></div>
                 <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>*@
             </div>

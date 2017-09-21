@@ -10,7 +10,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         <div class="row margin-two">
             <div class="col-md-9 col-sm-9 padding-four  dividers-header double-line  text-center">
                 <div class="subheader bg-white">
-                    <h1>@Model.Title</h1>
+                    <h1 class="to-be-translated" >@Model.Title</h1>
                     <!--<h2>Information</h2>-->
                 </div>
             </div>
@@ -63,7 +63,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                 <h2 class="margin-bottom text-center">Інформація</h2>
 
                 <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Відповідальний: </strong></h6>
-                <p class="black-text no-margin-top no-letter-spacing">@Model.Member.FirstName @Model.Member.LastName </p>
+                <p class="black-text no-margin-top no-letter-spacing to-be-translated">@Model.Member.FirstName @Model.Member.LastName </p>
 
                 @if (Format.AsReadableDate(Model.StartDate) == Format.AsReadableDate(Model.FinishDate))
                 {
@@ -82,7 +82,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                     <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing">@Format.AsReadableDate(Model.FinishDate)  @Format.AsReadableTime(Model.FinishDate)</h6>
                     <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 }
-                <h6 class="black-text no-margin-top  margin-five-bottom no-letter-spacing"><strong>Місце: </strong>@Model.Location</h6>
+                <h6 class="black-text no-margin-top  margin-five-bottom no-letter-spacing"><strong>Місце: </strong><span class="to-be-translated">@Model.Location</span></h6>
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 @if (Model.VolunteerOpp)
                 {
@@ -112,7 +112,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                         <div class="tab-pane med-text fade in active" id="tab3_sec1">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
-                                    <p class="no-margin-bottom">@Model.Description</p>
+                                    <p class="no-margin-bottom to-be-translated">@Model.Description</p>
                                  </div>
                             </div>
                         </div>

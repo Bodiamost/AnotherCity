@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization;
 @inject IViewLocalizer Localizer
 
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
@@ -289,6 +290,25 @@
         function showPage() {
             document.getElementById("loader").style.display = "none";
             document.getElementById("whole_page").style.display = "block";
+        }
+
+        @if (CultureInfo.CurrentCulture.Equals(new CultureInfo("en")))
+        {
+            <text>
+            $('.to-be-translated').each(function(index) {
+                var url = "https://translation.googleapis.com/language/translate/v2?q=" + $(this).text() + "&source=uk&target=en&key=AIzaSyDS5_8J3LVk3P1wnDYmreXWPh50-TlgISI";
+                var self = this;
+                $.ajax({
+                        url: url,
+                    method: "POST",
+                    crossDomain: true,
+                    success: function(data) {
+                        $(self).html(data['data']['translations'][0]['translatedText']);
+                        },
+                    error: function(error) { },
+                });
+            });
+            </text>
         }
     </script>
 
