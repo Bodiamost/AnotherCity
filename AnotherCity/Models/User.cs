@@ -10,11 +10,11 @@ namespace AnotherCity.Models
     {
         public int Id { get; set; }
         [Required]
-        [RegularExpression(@"([A-Z][a-z]+)",ErrorMessage ="Please enter correct name!")]
+        [RegularExpression(@"(*)", ErrorMessage ="Please enter correct name!")]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
         [Required]
-        [RegularExpression(@"([A-Z][a-z]+)", ErrorMessage = "Please enter correct name!")]
+        [RegularExpression(@"(*)", ErrorMessage = "Please enter correct name!")]
         [Display(Name = "LastName")]
         public string LastName { get; set; }
         [Required]

@@ -11,10 +11,6 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-AnotherCity-b7b9ab67-fd39-44ed-b735-4c76a846ec7f</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\js\jquery.translate.js" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -53,6 +49,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models.Volunteer.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Projects.ViewProject.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Projects.ViewProject.uk.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views.Volunteers.Create.uk.resx">

@@ -1,6 +1,9 @@
 ﻿@model AnotherCity.Models.Project
 @inject AnotherCity.Services.FormattingService Format
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
 ViewData["Title"] = Model.Title;
 Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,7 +27,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                              @if (social.Followers!= 0)
                              {
                                  <text>
-                                 <strong id="facebookNumber">@social.Followers</strong> слідкують  
+                                 <strong id="facebookNumber">@social.Followers</strong> @Localizer["ViewProject_Followers"]  
                                  </text>
                              }
                             <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
@@ -48,7 +51,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                             @if (social.Followers != 0)
                             {
                                 <text>
-                                <strong id="vkNumber">@social.Followers</strong> слідкують
+                                <strong id="vkNumber">@social.Followers</strong> @Localizer["ViewProject_Followers"] 
                                 </text>
                             }
                             <i class="fa fa-vk fa-2x" aria-hidden="true"></i>
@@ -60,34 +63,34 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         </div>
         <div class="row">
             <div class="col-md-3">
-                <h2 class="margin-bottom text-center">Інформація</h2>
+                <h2 class="margin-bottom text-center">@Localizer["ViewProject_Information"]</h2>
 
-                <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Відповідальний: </strong></h6>
+                <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_Responsible"]: </strong></h6>
                 <p class="black-text no-margin-top no-letter-spacing to-be-translated">@Model.Member.FirstName @Model.Member.LastName </p>
 
                 @if (Format.AsReadableDate(Model.StartDate) == Format.AsReadableDate(Model.FinishDate))
                 {
-                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Дата: </strong>@Format.AsReadableDate(Model.StartDate) </h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_Date"]: </strong>@Format.AsReadableDate(Model.StartDate) </h6>
                     <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
-                    <h6 class="black-text no-margin-top no-letter-spacing"><strong>Початок: </strong>@Format.AsReadableTime(Model.StartDate) </h6>
-                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Завершення: </strong>@Format.AsReadableTime(Model.FinishDate) </h6>
+                    <h6 class="black-text no-margin-top no-letter-spacing"><strong>@Localizer["ViewProject_Start"]: </strong>@Format.AsReadableTime(Model.StartDate) </h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_End"]: </strong>@Format.AsReadableTime(Model.FinishDate) </h6>
                     <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 }
                 else
                 {
-                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Початок: </strong></h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_Start"]: </strong></h6>
                     <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing">@Format.AsReadableDate(Model.StartDate)  @Format.AsReadableTime(Model.StartDate)</h6>
                     <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
-                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>Завершення: </strong></h6>
+                    <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_End"]: </strong></h6>
                     <h6 class="black-text no-margin-top margin-five-bottom no-letter-spacing">@Format.AsReadableDate(Model.FinishDate)  @Format.AsReadableTime(Model.FinishDate)</h6>
                     <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 }
-                <h6 class="black-text no-margin-top  margin-five-bottom no-letter-spacing"><strong>Місце: </strong><span class="to-be-translated">@Model.Location</span></h6>
+                <h6 class="black-text no-margin-top  margin-five-bottom no-letter-spacing"><strong>@Localizer["ViewProject_Location"]: </strong><span class="to-be-translated">@Model.Location</span></h6>
                 <div class="thin-separator-line bg-mid-gray margin-five no-margin-lr"></div>
                 @if (Model.VolunteerOpp)
                 {
                     <div class="hidden-lg hidden-md"><a asp-controller="Volunteers" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-black btn-medium">Become a volunteer</a></div>
-                    <div id="become_a_volunteer" class="btn btn-black btn-medium hidden-sm hidden-xs">Допомогти</div>
+                    <div id="become_a_volunteer" class="btn btn-black btn-medium hidden-sm hidden-xs">@Localizer["ViewProject_Volunteer"]</div>
                 }
             </div>
 
@@ -99,8 +102,8 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                             <!-- tab navigation -->
                             <ul class="nav nav-tabs nav-tabs-light text-left">
                                 <li class="active"><a href="#tab3_sec1" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                                @if (Model.Images.Count!=0) {<li><a href="#tab3_sec2" data-toggle="tab">Фотогалерея</a></li>}
-                                <li><a href="#tab3_sec3" data-toggle="tab">Карта</a></li>
+                                @if (Model.Images.Count!=0) {<li><a href="#tab3_sec2" data-toggle="tab">@Localizer["ViewProject_Gallery"]</a></li>}
+                                <li><a href="#tab3_sec3" data-toggle="tab">@Localizer["ViewProject_Map"]</a></li>
                                 <!--<li><a href="#tab3_sec4" data-toggle="tab">Comments(*)</a></li>-->
                             </ul>
                             <!-- end tab navigation -->
@@ -175,19 +178,15 @@ Layout = "~/Views/Shared/_Layout.cshtml";
             }
             return returnArray;
         }
-        $("#become_a_volunteer").on('click', function () { 
+        $("#become_a_volunteer").on('click', function () {
             var url = "/api/Volunteers/GetVolunteerForm/" +@Model.Id;
             $.confirm({
-                title: 'Приєднатись до команди!',
-                /*confirmButton: 'Apply!',
-                cancelButton: 'Later',
-                confirmButtonClass: 'btn-black',
-                cancelButtonClass: 'btn-black',*/
+                title: '@Localizer["ViewProject_BecomeVolunteer_Title"]',
                 columnClass: 'col-md-7 col-md-offset-2',
                 content: 'url:' + url,
                 buttons: {
                     formSubmit: {
-                        text: 'Подати!',
+                        text: '@Localizer["ViewProject_BecomeVolunteer_Confirm"]',
                         btnClass: 'btn-black',
                         action: function () {
                             var self = this;
@@ -209,8 +208,8 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                                     }
                                     else {
                                         $.alert({
-                                            title: 'Дякуємо!',
-                                            content: 'Ваш запит прийнято!',
+                                            title: '@Localizer["ViewProject_BecomeVolunteer_Thanks"]',
+                                            content: '@Localizer["ViewProject_BecomeVolunteer_Thanks"]',
                                         });
                                         self.close();
                                     }
@@ -225,19 +224,19 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                         }
                     },
                     cancel:{
-                        text: 'Пізніше',
+                        text: '@Localizer["ViewProject_BecomeVolunteer_Cancel"]',
                         btnClass: 'btn-grey',
                         action: function () {
                             $.alert({
                                 title: ':(',
-                                content: 'Не гай часу, друже!',
+                                content: '@Localizer["ViewProject_BecomeVolunteer_CancelMsg"]',
                             });
                             return true;
                         }
                     },
                 },
                 /*confirm: function () {
-                   
+
                 }*/
             });
         });
