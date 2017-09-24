@@ -11,114 +11,131 @@
     <div class="form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group">
-            <label asp-for="PhotoImg" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input type="file" asp-for="PhotoImg" class="form-control" />
-                <span asp-validation-for="PhotoImg" class="text-danger"></span>
-
-                <div id="currentImg" class="col-md-3 pull-left">
-                    @if (!String.IsNullOrEmpty(Model.PhotoImg))
-                    {
-                        <img src="/uploads/profileimgs/@Model.PhotoImg" class="img-thumbnail" />
-                        <div id="changeImg"><a href="#">Change image</a></div> 
-                    }
+        <div class="row">
+            <div class="col-md-6">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="FirstName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
                 </div>
-
-            </div>
-        </div>  
-        <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="LastName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="PositionId" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                <select asp-for="PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
-                <span asp-validation-for="PositionId" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Phone" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <input asp-for="TopMember" />
-                    <label asp-for="TopMember"></label>
+                <div class="form-group">
+                    <label asp-for="LastName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Bio" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <textarea asp-for="Bio" class="form-control"></textarea>
-                <span asp-validation-for="Bio" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div id="socials">
-                @foreach (var social in Model.MemberSocials)
-                {
-                    <div class="item">
-                        <label class="control-label col-md-2">@social.Social.Title</label>
-                        <div class="col-md-10">
-                            <p>@social.PersonalLink</p>
-                            <button class="btn btn-small btn-danger social-delete" type="button" value="@social.Id">DELETE</button>
-
+                <div class="form-group">
+                    <label asp-for="PositionId" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <select asp-for="PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
+                        <span asp-validation-for="PositionId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="TopMember" />
+                            <label asp-for="TopMember"></label>
                         </div>
                     </div>
-
-                }
-            </div>
-            <div id="socialAdd">
-                <div class="col-md-2">
-                    <select id="social_input" class="form-control" asp-items="ViewBag.SocialId"></select>
                 </div>
-                <div class="col-md-10">
-                    <input id="social_input_link" class="form-control" type="text" name="add" />  
-                    <div id="social_input_wrong" class="text-danger"></div>
-                    <button id="social_add" type="button" class="btn btn-default">Add social</button>
-                </div>
-
-                
             </div>
-            <div id="addSocials"><a href="#">Add social links</a></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PhotoImg" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input type="file" asp-for="PhotoImg" class="form-control" />
+                        <span asp-validation-for="PhotoImg" class="text-danger"></span>
+
+                        <div id="currentImg" class="col-md-3 pull-left">
+                            @if (!String.IsNullOrEmpty(Model.PhotoImg))
+                            {
+                                <img src="/uploads/profileimgs/@Model.PhotoImg" class="img-thumbnail" />
+                                <div id="changeImg"><a href="#">Change image</a></div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="socials">
+                        @foreach (var social in Model.MemberSocials)
+                        {
+                            <div class="item">
+                                <label class="control-label col-md-2">@social.Social.Title</label>
+                                <div class="col-md-10">
+                                    <p>@social.PersonalLink</p>
+                                    <button class="btn btn-small btn-danger social-delete" type="button" value="@social.Id">DELETE</button>
+
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                    <div id="socialAdd">
+                        <div class="col-md-2">
+                            <select id="social_input" class="form-control" asp-items="ViewBag.SocialId"></select>
+                        </div>
+                        <div class="col-md-10">
+                            <input id="social_input_link" class="form-control" type="text" name="add" />
+                            <div id="social_input_wrong" class="text-danger"></div>
+                            <button id="social_add" type="button" class="btn btn-default">Add social</button>
+                        </div>
+
+
+                    </div>
+                    <div id="addSocials"><a href="#">Add social links</a></div>
+                </div>
+            </div>
         </div>
+         
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Bio" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <textarea asp-for="Bio" class="form-control"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        </div>
+        
        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

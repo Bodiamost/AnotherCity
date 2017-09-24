@@ -10,25 +10,16 @@
 <form asp-action="Create"  enctype="multipart/form-data">
     <div class="form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
 
-
-        <div class="form-group">
-            <label asp-for="PhotoImg" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input type="file" asp-for="PhotoImg" class="form-control" />
-                <span asp-validation-for="PhotoImg" class="text-danger"></span>
-
-                <div id="currentImg" class="col-md-3 pull-left">
-                   @* @if (!String.IsNullOrEmpty(Model.PhotoImg))
-                        {
-                            <img src="/uploads/profileimgs/@Model.PhotoImg" class="img-thumbnail" />
-                            <div id="changeImg"><a href="#">Change image</a></div>
-                        }
-                   *@
-                </div>
             </div>
+            <div class="col-md-6">
 
+            </div>
+    
         </div>
+
         <div class="form-group">
             <label asp-for="FirstName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
