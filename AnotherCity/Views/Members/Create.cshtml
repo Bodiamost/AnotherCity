@@ -54,30 +54,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="PhotoImg" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input type="file" asp-for="PhotoImg" class="form-control" />
-                        <span asp-validation-for="PhotoImg" class="text-danger"></span>
-
-                        <div id="currentImg" class="col-md-3 pull-left">
-                            @* @if (!String.IsNullOrEmpty(Model.PhotoImg))
-                    {
-                        <img src="/uploads/profileimgs/@Model.PhotoImg" class="img-thumbnail" />
-                        <div id="changeImg"><a href="#">Change image</a></div>
-                    }
-                            *@
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Bio" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
@@ -86,8 +62,25 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PhotoImg" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input type="file" asp-for="PhotoImg" class="form-control" />
+                        <span asp-validation-for="PhotoImg" class="text-danger"></span>
+
+                        <div id="currentImg" class="col-md-6 pull-left">
+                            @* @if (!String.IsNullOrEmpty(Model.PhotoImg))
+                    {
+                        <img src="/uploads/profileimgs/@Model.PhotoImg" class="img-thumbnail" />
+                        <div id="changeImg"><a href="#">Change image</a></div>
+                    }
+                            *@
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
