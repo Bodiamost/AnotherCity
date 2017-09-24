@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnotherCity.Data;
 using AnotherCity.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnotherCity.API
 {
@@ -81,7 +82,15 @@ namespace AnotherCity.API
 
             return NoContent();
         }
-
+        // GET: api/ProjectSocials/GetProjectSocialsForm/1
+        [HttpGet]
+        [Route("GetProjectSocialsForm/{id}")]
+        public IActionResult GetProjectSocialsForm([FromRoute] int id)
+        {
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Title",id);
+            ViewData["SocialId"] = new SelectList(_context.SocialServices.Where(ss => !_context.ProjectsSocials.Where(ps=> ps.ProjectId==id && ss.Id == ps.SocialId ).Any()), "Id", "Title");
+            return PartialView("_Add");
+        }
         // POST: api/ProjectSocials
         [HttpPost]
         public async Task<IActionResult> PostProjectSocials([FromBody] ProjectSocials projectSocials)

@@ -1,15 +1,13 @@
 @model AnotherCity.Models.Project
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details of Project";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>Project</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -70,12 +68,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.LatLng)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SocialLinks)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SocialLinks)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Status)

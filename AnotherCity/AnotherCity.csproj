@@ -45,6 +45,12 @@
     <EmbeddedResource Update="Resources\Controllers.ProjectsController.uk.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models.Member.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models.Member.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models.Volunteer.uk.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>

@@ -12,23 +12,23 @@ namespace AnotherCity.Models
         }
 
         [Required]
-        [Display(Name = "Позиція ID")]
+        [Display(Name = "Position")]
         public int PositionId { get; set; }
         [Required]
         [MinLength(5)]
         [MaxLength(1024)]
-        [Display(Name = "Біографія")]
+        [Display(Name = "Bio")]
         public string Bio { get; set; }
-        [Display(Name = "Фото")]
+        [Display(Name = "Foto")]
         public string PhotoImg { get; set; }
-        [Display(Name = "Учасник?")]
+        [Display(Name = "Active Member?")]
         public bool TopMember { get; set; }
 
-        [Display(Name = "Проекти")]
+        [Display(Name = "Projects")]
         public virtual ICollection<Project> Projects { get; set; }
-        [Display(Name = "Позиція")]
+        [Display(Name = "Position")]
         public virtual Positions Position { get; set; }
-        [Display(Name = "Соціалки")]
+        [Display(Name = "Socials")]
         public ICollection<MemberSocials> MemberSocials { get; set; }
     }
 }

@@ -1,16 +1,14 @@
 @model AnotherCity.Models.Volunteer
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete application";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>@ViewData["Title"]</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Volunteer</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Bio)
@@ -49,16 +47,10 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Account.Id)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.VolunteerOpportunity)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.VolunteerOpportunity.Id)
+            @Html.DisplayFor(model => model.VolunteerOpportunity.Project.Title)
         </dd>
     </dl>
     

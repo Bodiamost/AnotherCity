@@ -20,10 +20,10 @@ namespace AnotherCity.Models
 
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Дата подачі")]
+        [Display(Name = "Date of application")]
         public DateTime? ApplicationDate { get; set; }
 
-        [Display(Name = "Проект")]
+        [Display(Name = "Project")]
         public virtual VolunteerOpportunity VolunteerOpportunity { get; set; }
     }
 }

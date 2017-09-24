@@ -1,16 +1,14 @@
 @model AnotherCity.Models.Project
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Project Edit";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>@ViewData["Title"] </h2>
 
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
         <div class="form-group">
@@ -147,31 +145,21 @@
                 @foreach (var social in Model.ProjectSocials)
                 {
                     <div class="item">
-                        <label class="control-label col-md-2">@social.Social.Title</label>
+                        <label class="control-label col-md-2"><a href="@social.ProjectLink">@social.Social.Title</a></label>
+
                         <div class="col-md-10">
-                            <p>@social.ProjectLink</p>
-                            <button class="btn btn-small btn-danger social-delete" type="button" value="@social.Id">DELETE</button>
-
+                            <button class="btn btn-small btn-danger social-delete" type="button" value="@social.Id">x</button>
                         </div>
+                        <hr />
                     </div>
-
                 }
             </div>
-            <div id="socialAdd">
-                <div class="col-md-2">
-                    <select id="social_input" class="form-control" asp-items="ViewBag.SocialId"></select>
-                </div>
-                <div class="col-md-10">
-                    <input id="social_input_followers" class="form-control" type="text" name="add-followers" placeholder="Followers"/>
-                    <input id="social_input_link" class="form-control" type="text" name="add" placeholder="Link"/>
-                    <div id="social_input_wrong" class="text-danger"></div>
-                    <button id="social_add" type="button" class="btn btn-default">Add social</button>
-                </div>
-
-
+            <div class="col-md-3">
+                <hr />
+                <button id="addSocials" type="button" class="btn btn-small btn-success pull-right">Add more social links</button>
             </div>
-            <div id="addSocials"><a href="#">Add social links</a></div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
@@ -408,8 +396,15 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhALS_Y8YRr2s6EoVxtx9Zd5azVJ9YzM&callback=initMap">
     </script>
 <script>
-        window.onload = function () {
+        function objectifyForm(formArray) {//serialize data function
 
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+        window.onload = function () {
             $('#Location').blur(function () {
                 codeAddress();
             });
@@ -418,15 +413,78 @@
                 $("#currentImg").hide();
                 $("#PhotoImg").show();
             });*/
-            $("#socialAdd").hide();
+            //$("#socialAdd").hide();
             $("#addSocials").on("click", function () {
-                $("#addSocials").hide();
-                $("#socialAdd").show();
+                var url = "/api/ProjectSocials/GetProjectSocialsForm/" +@Model.Id;
+                $.confirm({
+                    title: 'Add Social',
+                    columnClass: 'col-md-7 col-md-offset-2',
+                    content: 'url:' + url,
+                    buttons: {
+                        formSubmit: {
+                            text: 'Add',
+                            btnClass: 'btn-black',
+                            action: function () {
+                                var self = this;
 
-                $("#social_input").val("");
+                                if ($('#add_projectSocial_form').valid()) {
+                                    $.ajax({
+                                        'type': 'POST',
+                                        'url': "/api/ProjectSocials",
+                                        'timeout': 5000,
+                                        'contentType': 'application/json',
+                                        'data': JSON.stringify(objectifyForm($('#add_projectSocial_form').serializeArray())),
+                                        'dataType': 'json'
+                                    }).done(function (response) {
+                                        if (response == 'error') {
+                                            self.setContent(response);
+                                            $.alert({
+                                                title: 'Not valid information!',
+                                                content: 'The information you entered is not valid! Please provide an accurate data. ',
+                                            });
+                                        }
+                                        else {
+                                            $('#socials').append('<div class="item"><label class="control-label col-md-2"><a href="' + response.projectLink + '">' + $('#SocialId option:selected').text() +'</a></label><div class="col-md-10"><button class="btn btn-small btn-danger social-delete" type="button" value="'+response.id+'">x</button></div><hr/></div>');
+
+                                            $('.social-delete').on('click', function () {
+
+                                                var $theAnchor = $(this);
+                                                $.ajax({
+                                                    type: "DELETE",
+                                                    url: "/api/ProjectSocials/" + $theAnchor.val(),
+                                                    success: function () { $theAnchor.closest("div.item").remove(); },
+                                                    dataType: "json"
+                                                });
+                                            });
+                                            self.close();
+                                        }
+                                    }).fail(function () {
+                                        $.alert({
+                                            title: 'Oppps...Our fail!',
+                                            content: 'Something went wrong on our server or your internet connection.',
+                                        });
+                                    });
+                                }
+                                return false;
+                            }
+                        },
+                        cancel:{
+                            text: 'Cancel',
+                            btnClass: 'btn-grey',
+                            action: function () {
+                                return true;
+                            }
+                        },
+                    },
+                });
+                //$("#addSocials").hide();
+                //$("#socialAdd").show();
+                //$("#social_input").val("");
             });
 
-            $('#social_add').on('click', function () {
+
+
+            @*$('#social_add').on('click', function () {
 
                 var $theAnchor = $(this);
 
@@ -464,7 +522,7 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf-8"
                 });
-            });
+            });*@
 
             $('.social-delete').on('click', function () {
 

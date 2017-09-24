@@ -1,14 +1,14 @@
 @model AnotherCity.Utilities.PaginatedList<AnotherCity.Models.Project>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Projects Administration";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewData["Title"]</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Project   </a>
 </p>
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">

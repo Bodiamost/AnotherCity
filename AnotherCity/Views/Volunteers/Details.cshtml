@@ -1,15 +1,13 @@
 @model AnotherCity.Models.Volunteer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Volunteer Application";
     Layout = "~/Views/Shared/_BackendLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@ViewData["Title"] Details</h2>
 
 <div>
-    <h4>Volunteer</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Bio)
@@ -46,6 +44,13 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerOpportunity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerOpportunity.Project.Title)
         </dd>
     </dl>
 </div>

@@ -88,6 +88,7 @@ namespace AnotherCity.Controllers
             var volunteer = await _context.Volunteers
                 .Include(v => v.Account)
                 .Include(v => v.VolunteerOpportunity)
+                    .ThenInclude(vo => vo.Project)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (volunteer == null)
             {
@@ -111,6 +112,7 @@ namespace AnotherCity.Controllers
             var volunteer = await _context.Volunteers
                 .Include(v => v.Account)
                 .Include(v => v.VolunteerOpportunity)
+                    .ThenInclude(vo =>vo.Project)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (volunteer == null)
             {

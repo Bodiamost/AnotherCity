@@ -17,58 +17,58 @@ namespace AnotherCity.Models
         [Required]
         public int? MemberId { get; set; }
         [Required]
-        [Display(Name = "Назва")]
+        [Display(Name = "Title")]
         public string Title { get; set; }
-        [Display(Name = "Волонтери?")]
+        [Display(Name = "Volunteers?")]
         public bool VolunteerOpp { get; set; }
-        [Display(Name = "Інвестори?")]
+        [Display(Name = "Investors?")]
         public bool InvestOpp { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Початок")]
+        [Display(Name = "Start")]
         public DateTime? StartDate { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        [Display(Name = "Кінець")]
+        [Display(Name = "Finish")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime? FinishDate { get; set; }
         [Required]
         [MinLength(5)]
         [MaxLength(128)]
-        [Display(Name = "Короткий опис")]
+        [Display(Name = "Short description")]
         public string ShortDesc { get; set; }
         [Required]
         [MinLength(5)]
         [MaxLength(4096)]
-        [Display(Name = "Опис")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
-        [Display(Name = "Фото")]
+        [Display(Name = "Main image")]
         public string MainImg { get; set; }
         [Required]
-        [Display(Name = "Місце")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
-        [Display(Name = "На карті")]
+        [Display(Name = "Map Location")]
         public string LatLng { get; set; }
-        [Display(Name = "Соціальні мережі")]
+        [Display(Name = "Social Links")]
         public string SocialLinks { get; set; }
 
         [Required]
-        [Display(Name = "Статус")]
+        [Display(Name = "Status")]
         public string Status { get; set; }
 
-        [Display(Name = "У слайдер?")]
+        [Display(Name = "Featured?")]
         public bool Featured { get; set; }
 
-        [Display(Name = "Галерея")]
+        [Display(Name = "Fotos")]
         public virtual ICollection<Image> Images { get; set; }
-        [Display(Name = "Волонтери?")]
+        [Display(Name = "Volunteers")]
         public virtual ICollection<InvestOpportunity> InvestOpportunities { get; set; }
-        [Display(Name = "Інвестори?")]
+        [Display(Name = "Investors")]
         public virtual ICollection<VolunteerOpportunity> VolunteerOpportunities { get; set; }
-        [Display(Name = "Відповідальний")]
+        [Display(Name = "Responsible")]
         public virtual Member Member { get; set; }
         public ICollection<ProjectSocials> ProjectSocials { get; set; }
 

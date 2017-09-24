@@ -39,10 +39,13 @@ namespace AnotherCity.Models
         [Required]
         public int ProjectId { get; set; }
         [Required]
+        [Display(Name = "Social Service")]
         public int SocialId { get; set; }
+        [Display(Name = "Followers #")]
         public int Followers { get; set; }
         [Required]
         [Url]
+        [Display(Name = "URL")]
         public string ProjectLink { get; set; }
 
         public virtual Project Project { get; set; }

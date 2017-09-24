@@ -1,0 +1,47 @@
+@model AnotherCity.Models.ProjectSocials
+
+<form id="add_projectSocial_form" asp-controller="ProjectSocials" asp-action="PostProjectSocials" data-ajax="true" data-ajax-method="POST">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div style="display:none" class="form-group">
+            <label asp-for="ProjectId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ProjectId" class ="form-control" asp-items="ViewBag.ProjectId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SocialId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="SocialId" class ="form-control" asp-items="ViewBag.SocialId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Followers" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Followers" class="form-control" />
+                <span asp-validation-for="Followers" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProjectLink" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProjectLink" class="form-control" />
+                <span asp-validation-for="ProjectLink" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default"  style="display:none" />
+            </div>
+        </div>
+    </div>
+</form>
+<hr />
+
+<script>
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($('#add_projectSocial_form'));
+    });
+</script>
