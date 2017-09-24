@@ -77,9 +77,9 @@
                     <div class="col-md-2 pull-left"><a class="logo-light" asp-area="" asp-controller="Home" asp-action="Index"><img alt="" src="/images/logo-light.png" class="logo-style-2" /></a><a class="logo-dark" asp-area="" asp-controller="Home" asp-action="Index"><img alt="" src="/images/logo-light.png" class="logo-style-2" /></a></div>
                     <!-- end logo -->
                     <!-- search and cart  -->
-                    <div class="col-md-2 hidden-sm hidden-xs no-padding-left search-cart-header pull-right">
+                    <div class="col-md-2 col-sm-2 col-xs-3 no-padding-left search-cart-header">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 hidden-xs">
                                 <div id="top-search">
                                     <!-- nav search -->
                                     <a href="#search-header" class="header-search-form"><i class="fa fa-search search-button"></i></a>
@@ -96,7 +96,7 @@
                                 </form>
                                 <!-- end search input -->
                             </div>
-                            <div class="col-md-6">@await Html.PartialAsync("_SelectLanguagePartial")      </div>
+                            <div class="col-md-6  col-sm-6 col-xs-12">@await Html.PartialAsync("_SelectLanguagePartial")      </div>
                         </div>
                     </div>
                     <!-- end search and cart  -->
