@@ -1,0 +1,40 @@
+@model AnotherCity.Models.MemberSocials
+
+<form id="add_memberSocial_form" asp-controller="MemberSocials" asp-action="PostMemberSocials" data-ajax="true" data-ajax-method="POST">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div style="display:none"  class="form-group">
+            <label asp-for="MemberId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SocialId" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <select asp-for="SocialId" class ="form-control" asp-items="ViewBag.SocialId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalLink" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="PersonalLink" class="form-control" />
+                <span asp-validation-for="PersonalLink" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" style="display:none"/>
+            </div>
+        </div>
+    </div>
+</form>
+<hr />
+
+<script>
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse($('#add_memberSocial_form'));
+    });
+</script>

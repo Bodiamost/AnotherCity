@@ -24,9 +24,11 @@ namespace AnotherCity.Models
         [Required]
         public int MemberId { get; set; }
         [Required]
+        [Display(Name = "Social Service")]
         public int SocialId { get; set; }
         [Required]
         [Url]
+        [Display(Name = "Personal URL")]
         public string PersonalLink { get; set; }
 
         public virtual Member Member { get; set; }
@@ -45,7 +47,7 @@ namespace AnotherCity.Models
         public int Followers { get; set; }
         [Required]
         [Url]
-        [Display(Name = "URL")]
+        [Display(Name = "Project URL")]
         public string ProjectLink { get; set; }
 
         public virtual Project Project { get; set; }

@@ -23,7 +23,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                     <h6 class="black-text no-margin-top no-letter-spacing">
                     @if (social.SocialId == 1)
                     {
-                        <a href="@social.ProjectLink">
+                        <a href="@social.ProjectLink" target="_blank">
                              @if (social.Followers!= 0)
                              {
                                  <text>
@@ -35,19 +35,19 @@ Layout = "~/Views/Shared/_Layout.cshtml";
                     }
                     else if (social.SocialId == 2)
                     {
-                        <a href="@social.ProjectLink">
+                        <a href="@social.ProjectLink" target="_blank">
                             <i class="fa fa-google-plus"></i>
                         </a>
                     }
                     else if (social.SocialId == 3)
                     {
-                        <a href="@social.ProjectLink">
+                        <a href="@social.ProjectLink" target="_blank">
                             <i class="fa fa-linkedin"></i>
                         </a>
                     }
                     else if (social.SocialId == 4)
                     {
-                        <a href="@social.ProjectLink">
+                        <a href="@social.ProjectLink" target="_blank">
                             @if (social.Followers != 0)
                             {
                                 <text>

@@ -83,32 +83,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div id="socials">
+                    <div id="socials" class="row">
                         @foreach (var social in Model.MemberSocials)
                         {
+                            
                             <div class="item">
-                                <label class="control-label col-md-2">@social.Social.Title</label>
-                                <div class="col-md-10">
-                                    <p>@social.PersonalLink</p>
-                                    <button class="btn btn-xs btn-danger social-delete" type="button" value="@social.Id">x
-                                    </button>
-
+                                <label class="control-label col-md-2"><a href="@social.PersonalLink" target="_blank">@social.Social.Title</a></label>
+                                <div class="col-md-1">
+                                    <button class="btn btn-xs btn-danger social-delete" type="button" value="@social.Id">x</button>
                                 </div>
                             </div>
-
                         }
                     </div>
-                    <div id="socialAdd">
-                        <div class="col-md-2">
-                            <select id="social_input" class="form-control" asp-items="ViewBag.SocialId"></select>
-                        </div>
-                        <div class="col-md-10">
-                            <input id="social_input_link" class="form-control" type="text" name="add" />
-                            <div id="social_input_wrong" class="text-danger"></div>
-                            <button id="social_add" type="button" class="btn btn-default">Add social</button>
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button id="addSocials" type="button" class="btn btn-small btn-success">Add more social links</button>
                         </div>
                     </div>
-                    <div id="addSocials"><a href="#">Add social links</a></div>
                 </div>
             </div>
         </div>
@@ -133,7 +126,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
     <script>
-            
+
         window.onload = function () {
             //Upload image check start
             window.URL = window.URL || window.webkitURL;
@@ -163,7 +156,7 @@
                     image.className = "img-thumbnail";
                     image.addEventListener("load", function () {
 
-                        // Concatenate our HTML image info 
+                        // Concatenate our HTML image info
                         var imageInfo = file.name + ' ' + // get the value of `name` from the `file` Obj
                             image.width + 'x' + // But get the width from our `image`
                             image.height + ' ' +
@@ -175,11 +168,11 @@
                                 title: "Error",
                                 content: file.name + " Unsupported Image size (500x700 supported only)\n",
                             });
-                            elBrowse.value=''; 
+                            elBrowse.value='';
                             error = true;
                             return false;
                         }
-                        // Finally append our created image and the HTML info string to our `#preview` 
+                        // Finally append our created image and the HTML info string to our `#preview`
                         elPreview.appendChild(this);
                         elPreview.insertAdjacentHTML("beforeend", imageInfo + '<br>');
 
@@ -259,15 +252,83 @@
                 $("#currentImg").hide();
                 $("#PhotoImg").show();
             });
-            $("#socialAdd").hide();
-            $("#addSocials").on("click", function () {
-                $("#addSocials").hide();
-                $("#socialAdd").show();
 
-                $("#social_input").val("");
+            //Add social block
+            function objectifyForm(formArray) {//serialize data function
+
+                var returnArray = {};
+                for (var i = 0; i < formArray.length; i++) {
+                    returnArray[formArray[i]['name']] = formArray[i]['value'];
+                }
+                return returnArray;
+            }
+
+            $("#addSocials").on("click", function () {
+                var url = "/api/MemberSocials/GetMemberSocialsForm/" +@Model.Id;
+                $.confirm({
+                    title: 'Add Social',
+                    columnClass: 'col-md-7 col-md-offset-2',
+                    content: 'url:' + url,
+                    buttons: {
+                        formSubmit: {
+                            text: 'Add',
+                            btnClass: 'btn-black',
+                            action: function () {
+                                var self = this;
+
+                                if ($('#add_memberSocial_form').valid()) {
+                                    $.ajax({
+                                        'type': 'POST',
+                                        'url': "/api/MemberSocials",
+                                        'timeout': 5000,
+                                        'contentType': 'application/json',
+                                        'data': JSON.stringify(objectifyForm($('#add_memberSocial_form').serializeArray())),
+                                        'dataType': 'json'
+                                    }).done(function (response) {
+                                        if (response == 'error') {
+                                            self.setContent(response);
+                                            $.alert({
+                                                title: 'Not valid information!',
+                                                content: 'The information you entered is not valid! Please provide an accurate data. ',
+                                            });
+                                        }
+                                        else {
+                                            $('#socials').append('<div class="item"><label class="control-label col-md-2"><a href="' + response.personalLink + '">' + $('#SocialId option:selected').text() +'</a></label><div class="col-md-1"><button class="btn btn-xs btn-danger social-delete" type="button" value="'+response.id+'">x</button></div></div>');
+
+                                            $('.social-delete').on('click', function () {   
+
+                                                var $theAnchor = $(this);
+                                                $.ajax({
+                                                    type: "DELETE",
+                                                    url: "/api/MemberSocials/" + $theAnchor.val(),
+                                                    success: function () { $theAnchor.closest("div.item").remove(); },
+                                                    dataType: "json"
+                                                });
+                                            });
+                                            self.close();
+                                        }
+                                    }).fail(function () {
+                                        $.alert({
+                                            title: 'Oppps...Our fail!',
+                                            content: 'Something went wrong on our server or your internet connection.',
+                                        });
+                                    });
+                                }
+                                return false;
+                            }
+                        },
+                        cancel:{
+                            text: 'Cancel',
+                            btnClass: 'btn-grey',
+                            action: function () {
+                                return true;
+                            }
+                        },
+                    },
+                });
             });
 
-            $('#social_add').on('click', function () {
+            @*$('#social_add').on('click', function () {
 
                 var $theAnchor = $(this);
 
@@ -304,7 +365,7 @@
                     contentType: "application/json; charset=utf-8"
                 });
             });
-
+                *@
             $('.social-delete').on('click', function () {
 
                 var $theAnchor = $(this);
@@ -315,7 +376,7 @@
                     dataType: "json"
                 });
             });
-        }
+    }
 
 
     </script>

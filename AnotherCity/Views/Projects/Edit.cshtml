@@ -102,26 +102,26 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div id="socials">
+                    <div id="socials" class="row">
                         @foreach (var social in Model.ProjectSocials)
                         {
-                            <div class="item row">
-                                <label class="control-label col-md-2"><a href="@social.ProjectLink">@social.Social.Title</a></label>
+                            <div class="item">
+                                <label class="control-label col-md-2"><a href="@social.ProjectLink" target="_blank">@social.Social.Title</a></label>
 
-                                <div class="col-md-10">
+                                <div class="col-md-1">
                                     <button class="btn btn-xs btn-danger social-delete" type="button" value="@social.Id">x</button>
                                 </div>
-                                <hr />
                             </div>
                         }
                     </div>
-                    
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <button id="addSocials" type="button" class="btn btn-small btn-success pull-right">Add more social links</button>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3 center-col">
+                            <button id="addSocials" type="button" class="btn btn-small btn-success pull-right">Add more social links</button>
+                        </div>
                     </div>
                 </div>
+              
             </div>
         </div>
         <div class="row">
@@ -145,7 +145,7 @@
                     {
                         <div class="col-md-2 pull-left">
                             <img src="/uploads/@img.Path" class="img-thumbnail" />
-                            <button type="button" id="@img.Id" class="btn btn-xs btn-danger btn-delete">x</button>
+                            <button type="button" id="@img.Id" class="btn btn-xs btn-danger btn-delete center-col">delete</button>
                         </div>
                     }
                 }
@@ -432,12 +432,7 @@
             $('#Location').blur(function () {
                 codeAddress();
             });
-           /* $("#PhotoImg").hide();
-            $("#changeImg").on("click", function () {
-                $("#currentImg").hide();
-                $("#PhotoImg").show();
-            });*/
-            //$("#socialAdd").hide();
+
             $("#addSocials").on("click", function () {
                 var url = "/api/ProjectSocials/GetProjectSocialsForm/" +@Model.Id;
                 $.confirm({
@@ -468,7 +463,7 @@
                                             });
                                         }
                                         else {
-                                            $('#socials').append('<div class="item row"><label class="control-label col-md-2"><a href="' + response.projectLink + '">' + $('#SocialId option:selected').text() +'</a></label><div class="col-md-10"><button class="btn btn-xs btn-danger social-delete" type="button" value="'+response.id+'">x</button></div><hr/></div>');
+                                            $('#socials').append('<div class="item"><label class="control-label col-md-2"><a href="' + response.projectLink + '">' + $('#SocialId option:selected').text() +'</a></label><div class="col-md-1"><button class="btn btn-xs btn-danger social-delete" type="button" value="'+response.id+'">x</button></div></div>');
 
                                             $('.social-delete').on('click', function () {
 
@@ -501,52 +496,7 @@
                         },
                     },
                 });
-                //$("#addSocials").hide();
-                //$("#socialAdd").show();
-                //$("#social_input").val("");
             });
-
-
-
-            @*$('#social_add').on('click', function () {
-
-                var $theAnchor = $(this);
-
-                $.ajax({
-                    type: "POST",
-                    url: "/api/ProjectSocials",
-                    data: JSON.stringify({
-                        'SocialId': document.getElementById("social_input").value,
-                        'ProjectId': '@Model.Id',
-                        'ProjectLink': document.getElementById("social_input_link").value,
-                        'Followers': document.getElementById("social_input_followers").value
-                    }),
-                    error: function (index) {
-                        $("#social_input_wrong").html(index.responseText);
-                        console.log(index);
-                    },
-                    success: function (index) {
-                        $('#socials').append('<div class="item"><label class="control-label col-md-2">' + $("#social_input option[value='" + document.getElementById("social_input").value + "']").text() + '</label><div class="col-md-10"><p>' + document.getElementById("social_input_link").value + '</p><button class="btn btn-danger social-delete" type="button" value="'+index.id+'">DELETE</button></div></div>');
-                        $("#addSocials").show();
-                        $("#socialAdd").hide();
-                        $("#social_input").val("");
-                        $("#social_input_link").val("");
-                        $("#social_input_followers").val("");
-                        $('.social-delete').on('click', function () {
-
-                            var $theAnchor = $(this);
-                            $.ajax({
-                                type: "DELETE",
-                                url: "/api/ProjectSocials/" + $theAnchor.val(),
-                                success: function () { $theAnchor.closest("div.item").remove(); },
-                                dataType: "json"
-                            });
-                        });
-                    },
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8"
-                });
-            });*@
 
             $('.social-delete').on('click', function () {
 
